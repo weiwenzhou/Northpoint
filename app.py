@@ -1,8 +1,3 @@
-#Team pengWin: Maryann Foley and Tania Cao
-#SoftDev1 pd8
-#K15 -- Oh yes, perhaps I do...
-#2018-10-02    
-
 from flask import Flask, render_template, request,session,url_for,redirect,flash
 import os
 import csv
@@ -26,9 +21,9 @@ def auth():
             if session.get("error"):
                 session.pop("error")
         else:
-            flash("Incorrect password")#means password was wrong
+            flash("Incorrect password")
     else:
-        flash("Incorrect username")#username was wrong
+        flash("Incorrect username")
     return redirect(url_for("home"))
 
 @app.route("/logout", methods=['POST',"GET"])
