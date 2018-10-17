@@ -12,7 +12,7 @@ weiwenZ -- 2018-10-16 23:28
        (Timestamp is more understandable than edit count).
     5. Updated site map to make it clearer. 
 
-weiwenZ -- 2018-10-16 23:38
+weiwenZ -- 2018-10-16 23:47
   1. Everyone should know, understand and agree on the every aspect of the design 
   regardless if you are working on that part or not. Communication is key.
   2. Develop incrementally rather than just putting together a bunch of code to just make it work
