@@ -1,20 +1,69 @@
-Team Northpoint: Hui Min Wu, Thomas Zhao, Wei Wen Zhou, Tania Cao
+Northpoint
+Hui Min Wu
+Thomas Zhao
+Wei Wen zhou
+Tania Cao Su
+pd 8
+---------------------
+Goldfish Storytelling - collaborative story telling websites 
+where verified users are able to contribute to a story, 
+only with the last edit of another contributor as the context. 
+A user can only contribute to a story once and can view the 
+entire story once it has contributed to it.
+
+
+ ______   ______   __   __   __       ______   _______     
+/_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\    
+\:::_ \ \\::::_\/_\:\ \\ \ \\:\ \    \:::_ \ \\::::__\/__  
+ \:\ \ \ \\:\/___/\\:\ \\ \ \\:\ \    \:\ \ \ \\:\ /____/\ 
+  \:\ \ \ \\::___\/_\:\_/.:\ \\:\ \____\:\ \ \ \\:\\_  _\/ 
+   \:\/.:| |\:\____/\\ ..::/ / \:\/___/\\:\_\ \ \\:\_\ \ \ 
+    \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/ 
+==============================================================
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
 
 weiwenZ -- 2018-10-15 21:30
-  created project repo and added design.pdf
-  
+-------------------------------------------------------------
+created project repo and added design.pdf
+=============================================================
 weiwenZ -- 2018-10-16 23:28
-  updated design.pdf with feedback from peer review
+-------------------------------------------------------------
+updated design.pdf with feedback from peer review
     1. Added additional features
     2. Address links vs story text on landing page
     3. Show the connections between database tables
     4. Change edit count to timestamp for double functionality on the front and backend 
        (Timestamp is more understandable than edit count).
     5. Updated site map to make it clearer. 
-
+=============================================================
 weiwenZ -- 2018-10-16 23:47
-  1. Everyone should know, understand and agree on the every aspect of the design 
-  regardless if you are working on that part or not. Communication is key.
-  2. Develop incrementally rather than just putting together a bunch of code to just make it work
-  3. Have files/functions/templates that do one thing very well instead of everything. 
-  
+-------------------------------------------------------------
+1. Everyone should know, understand and agree on the every aspect of the design 
+regardless if you are working on that part or not. Communication is key.
+2. Develop incrementally rather than just putting together a bunch of code to just make it work
+3. Have files/functions/templates that do one thing very well instead of everything. 
+=============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.>
+==============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.>
+=============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.>
+=============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.>
+==============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.>
+=============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> 
