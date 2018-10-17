@@ -1,11 +1,17 @@
+#Team pengWin: Maryann Foley and Tania Cao
+#SoftDev1 pd8
+#K15 -- Oh yes, perhaps I do...
+#2018-10-02    
+
 from flask import Flask, render_template, request,session,url_for,redirect,flash
+import sqlite3
 import os
 import csv
-app = Flask(__name__)
 
+app = Flask(__name__)
 app.secret_key=os.urandom(32)
 
-@app.route("/", methods=['POST',"GET"])
+@app.route("/login", methods=['POST',"GET"])
 def home():
     if session.get("uname"):
         return render_template("welcome.html")
@@ -21,9 +27,9 @@ def auth():
             if session.get("error"):
                 session.pop("error")
         else:
-            flash("Incorrect password")
+            flash("Incorrect password")#means password was wrong
     else:
-        flash("Incorrect username")
+        flash("Incorrect username")#username was wrong
     return redirect(url_for("home"))
 
 @app.route("/logout", methods=['POST',"GET"])
