@@ -1,0 +1,16 @@
+Team Northpoint: Hui Min Wu, Thomas Zhao, Wei Wen Zhou, Tania Cao
+
+weiwenZ -- 2018-10-15 21:30
+  created project repo and added design.pdf
+  
+weiwenZ -- 2018-10-16 23:28
+  updated design.pdf with feedback from peer review
+    1. Added additional features
+    2. Address links vs story text on landing page
+    3. Show the connections between database tables
+    4. Change edit count to timestamp for double functionality on the front and backend 
+       (Timestamp is more understandable than edit count).
+    5. Updated site map to make it clearer. 
+
+
+  
