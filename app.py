@@ -6,8 +6,16 @@ import csv
 app = Flask(__name__)
 app.secret_key=os.urandom(32)
 
-@app.route("/login", methods=['POST',"GET"])
+@app.route("/", methods=['POST', 'GET'])
 def home():
+    return render_template("home.html", Title="Northpoint's Story Thingie")
+
+@app.route("/register", methods=['POST', 'GET'])
+def register():
+    return render_template("register.html", Title='Yeeters')
+
+@app.route("/login", methods=['POST',"GET"])
+def login():
     if session.get("uname"):
         return render_template("welcome.html")
     return render_template("login.html",Title = 'Login')
@@ -25,14 +33,14 @@ def auth():
             flash("Incorrect password")#means password was wrong
     else:
         flash("Incorrect username")#username was wrong
-    return redirect(url_for("home"))
+    return redirect(url_for("login"))
 
 @app.route("/logout", methods=['POST',"GET"])
 def logout():
     if session.get("uname"):
         session.pop("uname")
         print(session)
-    return redirect(url_for("home"))
+    return redirect(url_for("login"))
 
 if __name__ == "__main__":
     app.debug = True

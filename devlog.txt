@@ -44,9 +44,10 @@ regardless if you are working on that part or not. Communication is key.
 2. Develop incrementally rather than just putting together a bunch of code to just make it work
 3. Have files/functions/templates that do one thing very well instead of everything. 
 =============================================================
-clydeS -- 2999-12-31 23:59
+ThomasZ -- 2018-10-18 13:14
 -------------------------------------------------------------
-<Thing fristL did.>
+1. Created home.html and register.html
+2. Created the input and redirecting associated with these pages
 ==============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------

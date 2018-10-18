@@ -1,0 +1,20 @@
+{% extends "template.html" %}
+{% block title %}Register!{% endblock %}
+{% block body %}
+
+<br>
+
+<center>
+  <h1> Register an account! </h1>
+  
+  <form action="/auth" method="POST">
+    Enter a username: <input type="text" name="new_username"> <br><br>
+    Enter a password: <input type="password" name="new_pass"> <br>
+    Confirm password: <input type="password" name="confirm_pass"> <br><br>
+
+    <button type="submit">Register</button>
+  </form>
+
+</center>
+
+{% endblock %}
