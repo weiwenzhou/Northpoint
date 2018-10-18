@@ -1,8 +1,3 @@
-#Team pengWin: Maryann Foley and Tania Cao
-#SoftDev1 pd8
-#K15 -- Oh yes, perhaps I do...
-#2018-10-02    
-
 from flask import Flask, render_template, request,session,url_for,redirect,flash
 import sqlite3
 import os
