@@ -1,6 +1,26 @@
 {% extends "template.html" %}
-{% block title %}Logged In{% endblock %}
+{% block title %} | Welcome {% endblock %}
+{% block head %} Welcome {{ session["uname"] }} !{% endblock %}
+
 {% block body %}
-	<p>Your username is {{ session["uname"] }}.</p>
-	<a type="button" href={{ url_for('logout') }}>Logout</a>
+<form action="/results" methods=['GET']>
+  Search for stories:
+  <input type="text" name="search_term">
+  <button type="submit">Search</button>
+</form>
+  
+<hr>
+
+<form action="/create" methods=['POST']>
+  <button type="submit">Start a new story!</button>
+</form>
+
+<hr>
+
+<p> Stories not edited </p>
+
+<hr>
+
+<p> Stories you've contributed to </p>
+<a type="button" href={{ url_for('logout') }}>Logout</a>
 {% endblock %}
