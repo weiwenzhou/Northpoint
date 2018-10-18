@@ -6,7 +6,7 @@ import csv
 DB_FILE = "northpoint.db"
 db = sqlite3.connect(DB_FILE)
 u = db.cursor()
-u.execute("CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, pwd TEST)")
+u.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, pwd TEXT)")
 
 
 app = Flask(__name__)
