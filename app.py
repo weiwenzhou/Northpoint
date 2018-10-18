@@ -3,6 +3,12 @@ import sqlite3
 import os
 import csv
 
+DB_FILE = "northpoint.db"
+db = sqlite3.connect(DB_FILE)
+u = db.cursor()
+u.execute("CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, pwd TEST)")
+
+
 app = Flask(__name__)
 app.secret_key=os.urandom(32)
 
@@ -24,15 +30,18 @@ def login():
 def auth():
     givenUname=request.form["username"]
     givenPwd=request.form["password"]
-    if givenUname=="usr": 
-        if givenPwd=="pwd":
-            session["uname"]=givenUname
-            if session.get("error"):
-                session.pop("error")
+    u.execute("SELECT user, name FROM users");
+    u.fetchall();
+    for person in u:
+        if givenUname==person[0]:
+            if givenPwd==person[1]:
+                session["uname"]=givenUname
+                if session.get("error"):
+                        session.pop("error")
+            else:
+                flash("Incorrect password")#means password was wrong
         else:
-            flash("Incorrect password")#means password was wrong
-    else:
-        flash("Incorrect username")#username was wrong
+            flash("Incorrect username")#username was wrong
     return redirect(url_for("login"))
 
 @app.route("/logout", methods=['POST',"GET"])
@@ -45,3 +54,6 @@ def logout():
 if __name__ == "__main__":
     app.debug = True
     app.run()
+
+db.commit();
+db.close();
