@@ -49,9 +49,10 @@ ThomasZ -- 2018-10-18 13:14
 1. Created home.html and register.html
 2. Created the input and redirecting associated with these pages
 ==============================================================
-clydeS -- 2999-12-31 23:59
+huiminW -- 2018-10-31 20:14
 -------------------------------------------------------------
-<Thing fristL did.>
+Create a user database and updated login function to read from
+database to verify user.
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
