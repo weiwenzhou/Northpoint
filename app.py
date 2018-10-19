@@ -13,6 +13,8 @@ def home():
 
 @app.route("/register", methods=['POST', 'GET'])
 def register():
+    if session.get("new_username"):
+        return render_template("welcome.html")
     return render_template("register.html", Title='Yeeters')
 
 @app.route("/login", methods=['POST',"GET"])
@@ -25,7 +27,7 @@ def login():
 def auth():
     db = sqlite3.connect(DB_FILE)
     u = db.cursor()
-    u.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, pwd TEXT)")
+    u.execute("CREATE TABLE IF NOT EXISTS users (name TEXT, pwd TEXT)")
     givenUname=request.form["username"]
     givenPwd=request.form["password"]
     u.execute("SELECT name, pwd FROM users");
@@ -40,10 +42,31 @@ def auth():
                 flash("Incorrect password")#means password was wrong
         else:
             flash("Incorrect username")#username was wrong
-
     db.commit();
     db.close();
     return redirect(url_for("login"))
+
+@app.route("/create", methods=['POST'])
+def create():
+    db = sqlite3.connect(DB_FILE)
+    u = db.cursor()
+    u.execute("CREATE TABLE IF NOT EXISTS users (name TEXT, pwd TEXT)")
+    givenUname=request.form["new_username"]
+    givenPwdA=request.form["new_pass"]
+    givenPwdB=request.form["confirm_pass"]
+    u.execute("SELECT name, pwd FROM users");
+    for person in u:
+        if givenUname==person[0]:
+            flash("Username taken")# username already exists
+    if givenPwdA != givenPwdB:
+        flash("Passwords don\'t match") # given passwords don't match
+    else:
+        session["uname"]= givenUname
+        if session.get("error"):
+            session.pop("error")
+    db.commit();
+    db.close();
+    return redirect(url_for("register"))
 
 @app.route("/logout", methods=['POST',"GET"])
 def logout():
