@@ -1,7 +1,7 @@
 Northpoint
 Hui Min Wu
 Thomas Zhao
-Wei Wen zhou
+Wei Wen Zhou
 Tania Cao Su
 pd 8
 ---------------------
@@ -44,7 +44,7 @@ regardless if you are working on that part or not. Communication is key.
 2. Develop incrementally rather than just putting together a bunch of code to just make it work
 3. Have files/functions/templates that do one thing very well instead of everything. 
 =============================================================
-ThomasZ -- 2018-10-18 13:14
+thomasZ -- 2018-10-18 13:14
 -------------------------------------------------------------
 1. Created home.html and register.html
 2. Created the input and redirecting associated with these pages
@@ -54,8 +54,13 @@ huiminW -- 2018-10-31 20:14
 Create a user database and updated login function to read from
 database to verify user.
 =============================================================
-clydeS -- 2999-12-31 23:59
+weiwenZ -- 2018-10-21 18:03
 -------------------------------------------------------------
+1. Remove user ID from users table and change editor in story 
+table to TEXT. Made adjustments to design.pdf
+2. Fix register to insert into the users in db
+3. Fix the error with flash where it flashes an error when you
+logout. 
 <Thing fristL did.>
 =============================================================
 clydeS -- 2999-12-31 23:59
