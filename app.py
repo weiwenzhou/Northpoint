@@ -11,6 +11,10 @@ app.secret_key=os.urandom(32)
 def home():
     return render_template("home.html", Title="Northpoint's Story Thingie")
 
+#=============================================================
+# LOGIN/REGISTER
+#=============================================================    
+    
 @app.route("/register", methods=['POST', 'GET'])
 def register():
     if session.get("new_username"):
@@ -77,6 +81,10 @@ def logout():
         session.pop("uname")
         #print(session)
     return redirect(url_for("home"))
+
+#=============================================================
+# STORIES
+#=============================================================
 
 if __name__ == "__main__":
     app.debug = True
