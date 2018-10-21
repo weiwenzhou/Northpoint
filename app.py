@@ -19,6 +19,7 @@ def register():
 
 @app.route("/login", methods=['POST',"GET"])
 def login():
+    #print(session)
     if session.get("uname"):
         return render_template("welcome.html")
     return render_template("login.html",Title = 'Login')
@@ -31,17 +32,21 @@ def auth():
     givenUname=request.form["username"]
     givenPwd=request.form["password"]
     u.execute("SELECT name, pwd FROM users");
+    found = False #if the user is found
     for person in u:
-        print(person[0], person[1])
+        #print(person[0], person[1])
         if givenUname==person[0]:
+            found = True
             if givenPwd==person[1]:
                 session["uname"]=givenUname
                 if session.get("error"):
                         session.pop("error")
             else:
                 flash("Incorrect password")#means password was wrong
-        else:
-            flash("Incorrect username")#username was wrong
+        if (found):
+            break #exit for loop is user is found
+    if (not found):
+        flash("Incorrect username")#username was wrong
     db.commit();
     db.close();
     return redirect(url_for("login"))
@@ -61,19 +66,17 @@ def create():
     if givenPwdA != givenPwdB:
         flash("Passwords don\'t match") # given passwords don't match
     else:
-        session["uname"]= givenUname
-        if session.get("error"):
-            session.pop("error")
+        u.execute("INSERT INTO users values(?,?)", (givenUname, givenPwdA))
     db.commit();
     db.close();
-    return redirect(url_for("register"))
+    return redirect(url_for("home"))
 
 @app.route("/logout", methods=['POST',"GET"])
 def logout():
     if session.get("uname"):
         session.pop("uname")
-        print(session)
-    return redirect(url_for("login"))
+        #print(session)
+    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.debug = True
