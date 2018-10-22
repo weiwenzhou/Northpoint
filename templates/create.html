@@ -1,0 +1,18 @@
+{% extends "template.html" %}
+{% block head %} Create a story! {% endblock %}
+{% block title %} | Create {% endblock %}
+{% block body %}
+
+<br>
+Please enter a story title:
+
+<form action="/login">
+  <input type="text" name="story_title">
+
+  <br> <br> Please enter starting content for the story: <br>
+  
+  <textarea rows="20" cols="100" name="story_content"></textarea> <br>
+  <button type="submit">Start story!</button>
+</form>
+
+{% endblock %}

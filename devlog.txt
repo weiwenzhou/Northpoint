@@ -48,8 +48,12 @@ thomasZ -- 2018-10-18 13:14
 -------------------------------------------------------------
 1. Created home.html and register.html
 2. Created the input and redirecting associated with these pages
+=============================================================
+thomasZ -- 2018-10-19 14:05
+-------------------------------------------------------------
+Created more template files for web page displaying (results, welcome, edit_template)
 ==============================================================
-huiminW -- 2018-10-31 20:14
+huiminW -- 2018-10-21 20:14
 -------------------------------------------------------------
 Create a user database and updated login function to read from
 database to verify user.
@@ -62,16 +66,21 @@ table to TEXT. Made adjustments to design.pdf
 3. Fix the error with flash where it flashes an error when you
 logout. 
 =============================================================
+thomasZ -- 2018-10-22 00:32
+-------------------------------------------------------------
+1. Created "create.html", "edit.html"
+2. Linked webpages together in basic manner
+3. Update gitignore
+4. Added more app.routes to "app.py"
+
+NOTE: One bug is that when invalid information is entered for register, the flash error goes to the login page instead.
+==============================================================
 huiminW -- 2018-10-22 0:57
 -------------------------------------------------------------
 1. Created backend method to create a story 
 2. Implemented a global variable to keep track of the number of stories that
 have been created.
 3. Renamed the create methods for accounts and stories
-==============================================================
-clydeS -- 2999-12-31 23:59
--------------------------------------------------------------
-<Thing fristL did.>
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
