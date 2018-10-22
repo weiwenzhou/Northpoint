@@ -102,13 +102,14 @@ def edit():
 @app.route("/input_story", methods=['POST'])
 def input_story():
     db = sqlite3.connect(DB_FILE)
-    s = db-cursor()
-    s.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER PRIMARY KEY, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER")
+    s = db.cursor()
+    s.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER PRIMARY KEY, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER)")
     title=request.form["story_title"]
     beginning_text=request.form["story_content"]
-    s.execute("INSERT INTO stories values(?,?,?,?,?)", num_of_stories + 1, title, beginning_text, session.get("uname"), int(time.time()))
+    s.execute("INSERT INTO stories values(?,?,?,?,?)", (num_of_stories + 1, title, beginning_text, session.get("uname"), int(time.time())))
     db.commit();
     db.close();
+    flash("Created story!")
     return render_template("welcome.html")
 
 if __name__ == "__main__":
