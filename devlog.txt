@@ -65,11 +65,15 @@ table to TEXT. Made adjustments to design.pdf
 2. Fix register to insert into the users in db
 3. Fix the error with flash where it flashes an error when you
 logout. 
-<Thing fristL did.>
 =============================================================
-clydeS -- 2999-12-31 23:59
+thomasZ -- 2018-10-22 00:32
 -------------------------------------------------------------
-<Thing fristL did.>
+1. Created "create.html", "edit.html"
+2. Linked webpages together in basic manner
+3. Update gitignore
+4. Added more app.routes to "app.py"
+
+NOTE: One bug is that when invalid information is entered for register, the flash error goes to the login page instead.
 ==============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
