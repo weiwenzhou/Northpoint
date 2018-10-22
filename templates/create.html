@@ -1,0 +1,13 @@
+{% extends "edit_template.html" %}
+{% block title %} | Create {% endblock %}
+{% block body %}
+
+<br>
+Please enter a story title:
+
+<form action="/create">
+  <input type="text" name="story_title">
+  <button type="submit">Start story!</button>
+</form>
+
+{% endblock %}

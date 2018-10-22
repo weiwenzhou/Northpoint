@@ -55,7 +55,7 @@ def auth():
     db.close();
     return redirect(url_for("login"))
 
-@app.route("/create", methods=['POST'])
+@app.route("/create_account", methods=['POST'])
 def create():
     db = sqlite3.connect(DB_FILE)
     u = db.cursor()
