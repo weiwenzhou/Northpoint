@@ -1,10 +1,13 @@
 {% extends "template.html" %}
 {% block title %}{% endblock %}
+
 {% block body %}
+<br>
+Please enter your addition to the story:
 
-
-<form action="/edit">
+<form action="/login">
   <textarea rows="20" cols="100"></textarea> <br>
   <button type="submit">Submit edit</button>
 </form>
+
 {% endblock %}

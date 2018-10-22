@@ -56,7 +56,7 @@ def auth():
     return redirect(url_for("login"))
 
 @app.route("/create_account", methods=['POST'])
-def create():
+def create_account():
     db = sqlite3.connect(DB_FILE)
     u = db.cursor()
     u.execute("CREATE TABLE IF NOT EXISTS users (name TEXT, pwd TEXT)")
@@ -85,6 +85,17 @@ def logout():
 #=============================================================
 # STORIES
 #=============================================================
+@app.route("/create", methods=['POST', 'GET'])
+def create():
+    return render_template("create.html", Title="tis make story")
+
+@app.route("/results", methods=['GET'])
+def results():
+    return render_template("results.html", Title="Results")
+
+@app.route("/edit", methods=['GET'])
+def edit():
+    return render_template("edit.html", Title="Edit")
 
 if __name__ == "__main__":
     app.debug = True

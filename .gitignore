@@ -2,6 +2,8 @@
 *.py~
 *.html~
 *.txt~
+*.py#
+*.gitignore~
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
