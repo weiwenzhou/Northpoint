@@ -87,8 +87,8 @@ def logout():
 #=============================================================
 # STORIES
 #=============================================================
-@app.route("/create", methods=['POST', 'GET'])
-def create():
+@app.route("/create_story", methods=['POST', 'GET'])
+def create_story():
     return render_template("create.html", Title="tis make story")
 
 @app.route("/results", methods=['GET'])
@@ -99,13 +99,13 @@ def results():
 def edit():
     return render_template("edit.html", Title="Edit")
 
-@app.route("/create_story", methods=['POST'])
-def create_story():
+@app.route("/input_story", methods=['POST'])
+def input_story():
     db = sqlite3.connect(DB_FILE)
     s = db-cursor()
     s.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER PRIMARY KEY, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER")
-    title=request.form["title"]
-    beginning_text=request.form["text"]
+    title=request.form["story_title"]
+    beginning_text=request.form["story_content"]
     s.execute("INSERT INTO stories values(?,?,?,?,?)", num_of_stories + 1, title, beginning_text, session.get("uname"), int(time.time()))
     db.commit();
     db.close();
