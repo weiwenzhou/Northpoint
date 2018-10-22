@@ -11,6 +11,7 @@
   
 <hr>
 
+{# this link goes on to create a story #}
 <form action="/create_story" methods=['POST']>
   <button type="submit">Start a new story!</button>
 </form>
@@ -18,6 +19,13 @@
 <hr>
 
 <p> Stories not edited </p>
+
+{% for each in stories %}
+<p>
+  {{ each }}
+<p>
+<br>
+{% endfor %}
 
 <a type="button" href="/edit">Edit</a>
 <b> THIS IS JUST A TEMPORARY BUTTON TO SEE IF EDIT.HTML RENDERS RIGHT </b>
