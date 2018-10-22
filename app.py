@@ -2,10 +2,12 @@ from flask import Flask, render_template, request,session,url_for,redirect,flash
 import sqlite3
 import os
 import csv
+import time
 
 DB_FILE = "northpoint.db"
 app = Flask(__name__)
 app.secret_key=os.urandom(32)
+num_of_stories = 0
 
 @app.route("/", methods=['POST', 'GET'])
 def home():
@@ -55,8 +57,8 @@ def auth():
     db.close();
     return redirect(url_for("login"))
 
-@app.route("/create", methods=['POST'])
-def create():
+@app.route("/create_acc", methods=['POST'])
+def create_acc():
     db = sqlite3.connect(DB_FILE)
     u = db.cursor()
     u.execute("CREATE TABLE IF NOT EXISTS users (name TEXT, pwd TEXT)")
@@ -85,6 +87,18 @@ def logout():
 #=============================================================
 # STORIES
 #=============================================================
+
+@app.route("/create_story", methods=['POST'])
+def create_story():
+    db = sqlite3.connect(DB_FILE)
+    s = db-cursor()
+    s.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER PRIMARY KEY, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER")
+    title=request.form["title"]
+    beginning_text=request.form["text"]
+    s.execute("INSERT INTO stories values(?,?,?,?,?)", num_of_stories + 1, title, beginning_text, session.get("uname"), int(time.time()))
+    db.commit();
+    db.close();
+    return render_template("welcome.html")
 
 if __name__ == "__main__":
     app.debug = True

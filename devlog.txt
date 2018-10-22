@@ -61,11 +61,13 @@ table to TEXT. Made adjustments to design.pdf
 2. Fix register to insert into the users in db
 3. Fix the error with flash where it flashes an error when you
 logout. 
-<Thing fristL did.>
 =============================================================
-clydeS -- 2999-12-31 23:59
+huiminW -- 2018-10-22 0:57
 -------------------------------------------------------------
-<Thing fristL did.>
+1. Created backend method to create a story 
+2. Implemented a global variable to keep track of the number of stories that
+have been created.
+3. Renamed the create methods for accounts and stories
 ==============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
