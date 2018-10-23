@@ -10,6 +10,11 @@ app.secret_key=os.urandom(32)
 num_of_stories = 0
 story_title = ""
 
+db = sqlite3.connect(DB_FILE)
+c = db.cursor()
+c.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER)")
+c.execute("CREATE TABLE IF NOT EXISTS users (name TEXT, pwd TEXT)")
+
 @app.route("/", methods=['POST', 'GET'])
 def home():
     return render_template("home.html", Title="Northpoint's Story Thingie")
@@ -32,6 +37,7 @@ def login():
         db = sqlite3.connect(DB_FILE)
         u = db.cursor()
         v = db.cursor()
+        
         u.execute("SELECT name FROM stories WHERE stories.editor = (?)", (username,)) #edited
         v.execute("SELECT name FROM stories WHERE NOT stories.editor = (?)", (username,)) #non-edited
         return render_template("welcome.html", stories=u, noeditstories=v)
@@ -121,6 +127,7 @@ def input_story():
     s.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER)")
     title=request.form["story_title"]
     beginning_text=request.form["story_content"]
+    
     s.execute("SELECT MAX(story_id) FROM stories")
     num_of_stories = s.fetchone()[0] + 1
     print("NUM OF STORES:", num_of_stories)
@@ -174,9 +181,6 @@ def show_story():
     return render_template("story.html")
     
 @app.route("/redirect") #was tryna do something but didn't work
-    print('exdee')
-
-@app.route("/redirect/<story_title>") #was tryna do something but didn't work
 def redir():
     story_title = request.args['title']
     return redirect(url_for("show_story"))
