@@ -93,6 +93,14 @@ def create_story():
 
 @app.route("/results", methods=['GET'])
 def results():
+    db = sqlite3.connect(DB_FILE)
+    s = db-cursor()
+    search=request.form["search_term"]
+    s.execute("SELECT {0},{1},{2},{3} FROM {4} WHERE regexp_like({5},{6},'i')".format("story_id","name", "editor", "timestamp", "name", "search")
+    for row in s:
+        print(row)
+    db.commit();
+    db.close();
     return render_template("results.html", Title="Results")
 
 @app.route("/edit", methods=['GET'])
