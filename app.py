@@ -27,7 +27,13 @@ def register():
 def login():
     #print(session)
     if session.get("uname"):
-        return render_template("welcome.html")
+        username = session.get("uname")
+        db = sqlite3.connect(DB_FILE)
+        u = db.cursor()
+        v = db.cursor()
+        u.execute("SELECT name FROM stories WHERE stories.editor = (?)", (username,)) #edited
+        v.execute("SELECT name FROM stories WHERE NOT stories.editor = (?)", (username,)) #non-edited
+        return render_template("welcome.html", stories=u, noeditstories=v)
     return render_template("login.html",Title = 'Login')
 
 @app.route("/auth", methods=['POST'])
@@ -113,7 +119,7 @@ def input_story():
     s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
     db.commit();
     db.close();
-    return render_template("welcome.html")
+    return redirect(url_for("login"))
 
 # VERY UNTESTED (WAITING FOR FRONT END)
 @app.route("/edit_story", methods=["POST"])
@@ -153,6 +159,14 @@ def display_stories():
         story = ""
     db.commit()
     db.close()
+
+@app.route("/story") #temporary just to display story -- backend ppl can change if necessary
+def show_story():
+    print('exdee')
+    
+@app.route("/redirect/<story_title>") #was tryna do something but didn't work
+def redir():
+    return redirect(url_for("show_story"))
 
 if __name__ == "__main__":
     app.debug = True

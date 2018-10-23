@@ -19,8 +19,8 @@
 <hr>
 
 <p> Stories not edited </p>
-{% for entry in stories %}
-<p> <a href="/edit_story">{{ entry[0] }}</a> </p>
+{% for entry in noeditstories %}
+<p> <a href="/redirect?title="+entry[0]>{{ entry[0] }}</a> </p>
 {% endfor %}
 
 <a type="button" href="/edit">Edit</a>
@@ -28,5 +28,9 @@
 <hr>
 
 <p> Stories you've contributed to </p>
+{% for entry in stories %}
+<p> <a href="/redirect?title="+entry[0]>{{ entry[0] }}</a> </p>
+{% endfor %}
+
 <a type="button" href={{ url_for('logout') }}>Logout</a>
 {% endblock %}

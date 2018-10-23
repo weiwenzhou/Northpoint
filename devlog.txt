@@ -86,6 +86,10 @@ huiminW -- 2018-10-22 13:49
 -------------------------------------------------------------
 0. Fixed bugs with creating a story
 =============================================================
+thomasZ -- 2018-10-22 14:02
+-------------------------------------------------------------
+Attempted to get jinja to display items from the database
+=============================================================
 huiminW -- 2018-10-22 20:28
 -------------------------------------------------------------
 0. Added method to display latest edit
@@ -96,11 +100,35 @@ huiminW -- 2018-10-22 20:28
 NOTE: New methods added are not tested because frontend for
 those features have not been developed enough yet
 =============================================================
-clydeS -- 2999-12-31 23:59
+thomasZ -- 2018-10-22 21:27
 -------------------------------------------------------------
-<Thing fristL did.> 
+Made the stories in database table show; however contemplating different solutions for making the hyperlinks KNOW what story they represent
+=============================================================
+thomasZ -- 2018-10-23 00:52
+-------------------------------------------------------------
+I made the stories show on the welcome.html page in different categories, if they have been edited by user or not. Biggest issue I have is when I made them into hyperlinks, how do the hyperlinks convey identifying information so it can display correct story information? I was thinking query strings but it didn't work for some reason (QAF post).
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
+<Thing fristL did.> =============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> =============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> =============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> =============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> =============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> =============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> =============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
 <Thing fristL did.> 
-
