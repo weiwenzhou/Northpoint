@@ -15,8 +15,8 @@ def home():
 
 #=============================================================
 # LOGIN/REGISTER
-#=============================================================    
-    
+#=============================================================
+
 @app.route("/register", methods=['POST', 'GET'])
 def register():
     if session.get("new_username"):
@@ -27,7 +27,13 @@ def register():
 def login():
     #print(session)
     if session.get("uname"):
-        return render_template("welcome.html")
+        username = session.get("uname")
+        db = sqlite3.connect(DB_FILE)
+        u = db.cursor()
+        v = db.cursor()
+        u.execute("SELECT name FROM stories WHERE stories.editor = (?)", (username,)) #edited
+        v.execute("SELECT name FROM stories WHERE NOT stories.editor = (?)", (username,)) #non-edited
+        return render_template("welcome.html", stories=u, noeditstories=v)
     return render_template("login.html",Title = 'Login')
 
 @app.route("/auth", methods=['POST'])
@@ -110,14 +116,65 @@ def edit():
 @app.route("/input_story", methods=['POST'])
 def input_story():
     db = sqlite3.connect(DB_FILE)
-    s = db-cursor()
-    s.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER PRIMARY KEY, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER")
+    s = db.cursor()
+    s.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER)")
     title=request.form["story_title"]
     beginning_text=request.form["story_content"]
-    s.execute("INSERT INTO stories values(?,?,?,?,?)", num_of_stories + 1, title, beginning_text, session.get("uname"), int(time.time()))
+    s.execute("SELECT MAX(story_id) FROM stories")
+    num_of_stories = s.fetchone()[0] + 1
+    print("NUM OF STORES:", num_of_stories)
+    params = (num_of_stories, title, beginning_text, session.get("uname"), int(time.time()))
+    s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
     db.commit();
     db.close();
-    return render_template("welcome.html")
+    return redirect(url_for("login"))
+
+# VERY UNTESTED (WAITING FOR FRONT END)
+@app.route("/edit_story", methods=["POST"])
+def edit_story():
+    db.sqlite3.connect(DB_FILE)
+    s = db.cursor()
+    title = request.form["story_title"]
+    num = s.fetchone(s.execute("SELECT story_id FROM stories WHERE title = (?)", title))[0]
+    edits = request.form["text"]
+    s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", (num, title, edits, session.get("uname"), int(time.time())))
+    db.commit();
+    db.close();
+
+#displays latest edit
+def dis_latest_edit():
+    db.sqlite3.connect(DB_FILE)
+    s = db.cursor()
+    title=request.form["story_title"]
+    s.execute("SELECT MAX(timestamp) FROM stories WHERE title = (?)", title)
+    highest_time = s.fetchone()[0]
+    s.execute("SELECT edit FROM stories WHERE timestamp = (?)", highest_time)
+    latest_edit = s.fetchone()[0]
+    db.commit()
+    db.close()
+    #some method to communicate to front end the latest edit
+
+def display_stories():
+    db.sqlite3.connect(DB_FILE)
+    s = db.cursor()
+    story = ""
+    s.execute("SELECT story_id FROM stories WHERE editor = (?)", session.get("uname"))
+    for s_id in s:
+        s.execute("SELECT edit FROM stories WHERE story_id = (?)", s_id[0])
+        for line in s:
+            story += line + "\n"
+        #display story to frontend
+        story = ""
+    db.commit()
+    db.close()
+
+@app.route("/story") #temporary just to display story -- backend ppl can change if necessary
+def show_story():
+    print('exdee')
+    
+@app.route("/redirect/<story_title>") #was tryna do something but didn't work
+def redir():
+    return redirect(url_for("show_story"))
 
 if __name__ == "__main__":
     app.debug = True
