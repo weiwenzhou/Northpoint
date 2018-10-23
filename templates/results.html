@@ -4,11 +4,9 @@
 
 {% block body %}
 
-THIS IS THE PLACEHOLDER FOR STORIES
-
-<form action="/login">
-  <button type="submit">Search again</button>
+<form action="/results" method="POST">
+  Enter a keyword: <input type="text" name="keyword"> <br><br>  
+  <button type="submit">Submit</button>
 </form>
-
 
 {% endblock %}

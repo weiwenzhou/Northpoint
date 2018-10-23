@@ -97,11 +97,19 @@ def logout():
 @app.route("/create_story", methods=['POST', 'GET'])
 def create_story():
     return render_template("create.html", Title="tis make story")
-
+"""
 @app.route("/results", methods=['GET'])
 def results():
+    db = sqlite3.connect(DB_FILE)
+    s = db.cursor()
+    search=request.form["search_term"]
+    s.execute("SELECT {0},{1},{2},{3} FROM {4} WHERE regexp_like({5},{6},'i')".format("story_id","name", "editor", "timestamp", "name", "search")
+    for row in s:
+        print(row)
+    db.commit();
+    db.close();
     return render_template("results.html", Title="Results")
-
+"""
 @app.route("/edit", methods=['GET'])
 def edit():
     return render_template("edit.html", Title="Edit")
@@ -166,6 +174,9 @@ def show_story():
     return render_template("story.html")
     
 @app.route("/redirect") #was tryna do something but didn't work
+    print('exdee')
+
+@app.route("/redirect/<story_title>") #was tryna do something but didn't work
 def redir():
     story_title = request.args['title']
     return redirect(url_for("show_story"))
@@ -173,4 +184,3 @@ def redir():
 if __name__ == "__main__":
     app.debug = True
     app.run()
-
