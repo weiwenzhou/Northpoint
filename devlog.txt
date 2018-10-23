@@ -115,6 +115,8 @@ We helped Thomas with front end information passing using requests
 thomasZ -- 2018-10-23 16:58
 -------------------------------------------------------------
 Went to the Dojo and there were some backend errors that I went over with Rayray-sunshine
+
+Note: in order for our thing to work, we need a pre-existing story in our database! Otherwise, story_id is undefined and mere logging in does not work
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
