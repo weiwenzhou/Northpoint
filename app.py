@@ -15,8 +15,8 @@ def home():
 
 #=============================================================
 # LOGIN/REGISTER
-#=============================================================    
-    
+#=============================================================
+
 @app.route("/register", methods=['POST', 'GET'])
 def register():
     if session.get("new_username"):
@@ -103,14 +103,56 @@ def edit():
 def input_story():
     db = sqlite3.connect(DB_FILE)
     s = db.cursor()
-    s.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER PRIMARY KEY, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER)")
+    s.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER)")
     title=request.form["story_title"]
     beginning_text=request.form["story_content"]
-    s.execute("INSERT INTO stories values(?,?,?,?,?)", (num_of_stories + 1, title, beginning_text, session.get("uname"), int(time.time())))
+    s.execute("SELECT MAX(story_id) FROM stories")
+    num_of_stories = s.fetchone()[0] + 1
+    print("NUM OF STORES:", num_of_stories)
+    params = (num_of_stories, title, beginning_text, session.get("uname"), int(time.time()))
+    s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
     db.commit();
     db.close();
-    flash("Created story!")
     return render_template("welcome.html")
+
+# VERY UNTESTED (WAITING FOR FRONT END)
+@app.route("/edit_story", methods=["POST"])
+def edit_story():
+    db.sqlite3.connect(DB_FILE)
+    s = db.cursor()
+    title = request.form["story_title"]
+    num = s.fetchone(s.execute("SELECT story_id FROM stories WHERE title = (?)", title))[0]
+    edits = request.form["text"]
+    s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", (num, title, edits, session.get("uname"), int(time.time())))
+    db.commit();
+    db.close();
+
+#displays latest edit
+def dis_latest_edit():
+    db.sqlite3.connect(DB_FILE)
+    s = db.cursor()
+    title=request.form["story_title"]
+    s.execute("SELECT MAX(timestamp) FROM stories WHERE title = (?)", title)
+    highest_time = s.fetchone()[0]
+    s.execute("SELECT edit FROM stories WHERE timestamp = (?)", highest_time)
+    latest_edit = s.fetchone()[0]
+    db.commit()
+    db.close()
+    #some method to communicate to front end the latest edit
+
+def display_stories():
+    db.sqlite3.connect(DB_FILE)
+    s = db.cursor()
+    story = ""
+    s.execute("SELECT story_id FROM stories WHERE editor = (?)", session.get("uname"))
+    for s_id in s:
+        s.execute("SELECT edit FROM stories WHERE story_id = (?)", s_id[0])
+        for line in s:
+            story += line + "\n"
+        #display story to frontend
+        story = ""
+    db.commit()
+    db.close()
 
 if __name__ == "__main__":
     app.debug = True

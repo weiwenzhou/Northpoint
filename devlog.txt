@@ -30,24 +30,24 @@ created project repo and added design.pdf
 weiwenZ -- 2018-10-16 23:28
 -------------------------------------------------------------
 updated design.pdf with feedback from peer review
-    1. Added additional features
-    2. Address links vs story text on landing page
-    3. Show the connections between database tables
-    4. Change edit count to timestamp for double functionality on the front and backend 
+    0. Added additional features
+    1. Address links vs story text on landing page
+    2. Show the connections between database tables
+    3. Change edit count to timestamp for double functionality on the front and backend 
        (Timestamp is more understandable than edit count).
-    5. Updated site map to make it clearer. 
+    4. Updated site map to make it clearer. 
 =============================================================
 weiwenZ -- 2018-10-16 23:47
 -------------------------------------------------------------
-1. Everyone should know, understand and agree on the every aspect of the design 
+0. Everyone should know, understand and agree on the every aspect of the design 
 regardless if you are working on that part or not. Communication is key.
-2. Develop incrementally rather than just putting together a bunch of code to just make it work
-3. Have files/functions/templates that do one thing very well instead of everything. 
+1. Develop incrementally rather than just putting together a bunch of code to just make it work
+2. Have files/functions/templates that do one thing very well instead of everything. 
 =============================================================
 thomasZ -- 2018-10-18 13:14
 -------------------------------------------------------------
-1. Created home.html and register.html
-2. Created the input and redirecting associated with these pages
+0. Created home.html and register.html
+1. Created the input and redirecting associated with these pages
 =============================================================
 thomasZ -- 2018-10-19 14:05
 -------------------------------------------------------------
@@ -60,35 +60,41 @@ database to verify user.
 =============================================================
 weiwenZ -- 2018-10-21 18:03
 -------------------------------------------------------------
-1. Remove user ID from users table and change editor in story 
+0. Remove user ID from users table and change editor in story 
 table to TEXT. Made adjustments to design.pdf
-2. Fix register to insert into the users in db
-3. Fix the error with flash where it flashes an error when you
+1. Fix register to insert into the users in db
+2. Fix the error with flash where it flashes an error when you
 logout. 
 =============================================================
 thomasZ -- 2018-10-22 00:32
 -------------------------------------------------------------
-1. Created "create.html", "edit.html"
-2. Linked webpages together in basic manner
-3. Update gitignore
-4. Added more app.routes to "app.py"
+0. Created "create.html", "edit.html"
+1. Linked webpages together in basic manner
+2. Update gitignore
+3. Added more app.routes to "app.py"
 
 NOTE: One bug is that when invalid information is entered for register, the flash error goes to the login page instead.
 ==============================================================
 huiminW -- 2018-10-22 0:57
 -------------------------------------------------------------
-1. Created backend method to create a story 
-2. Implemented a global variable to keep track of the number of stories that
+0. Created backend method to create a story 
+1. Implemented a global variable to keep track of the number of stories that
 have been created.
-3. Renamed the create methods for accounts and stories
+2. Renamed the create methods for accounts and stories
 =============================================================
 huiminW -- 2018-10-22 13:49
 -------------------------------------------------------------
-1. Fixed bugs with creating a story
+0. Fixed bugs with creating a story
 =============================================================
-clydeS -- 2999-12-31 23:59
+huiminW -- 2018-10-22 20:28
 -------------------------------------------------------------
-<Thing fristL did.> 
+0. Added method to display latest edit
+1. Added method to process edit from user
+2. Added method to display stories the user has editted
+3. Fixed errors for adding second new story to database
+
+NOTE: New methods added are not tested because frontend for
+those features have not been developed enough yet
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
