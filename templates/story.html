@@ -1,8 +1,13 @@
 {% extends "template.html" %}
-{% block title %} Story's name here {% endblock %}
+
+{% block title %} | {{ title }} {% endblock %}
+{% block head %} <h1> {{ title }} </h1> {% endblock %}
+
+
 {% block body %}
 
-if edited, display whole story
-if not, only last thing
+{% for line in content %}
+{{ line }} <br>
+{% endfor %}
 
 {% endblock %}

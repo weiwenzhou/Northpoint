@@ -13,7 +13,7 @@ story_title = ""
 db = sqlite3.connect(DB_FILE)
 c = db.cursor()
 c.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER)")
-c.execute("CREATE TABLE IF NOT EXISTS users (name TEXT, pwd TEXT)")
+#c.execute("IF SELECT COUNT(*) FROM stories = 0 THEN INSERT VALUES (0, 'default', 'default-content', 'default-editor', 0)") #how do we do the if statement??
 
 @app.route("/", methods=['POST', 'GET'])
 def home():
@@ -124,7 +124,6 @@ def edit():
 def input_story():
     db = sqlite3.connect(DB_FILE)
     s = db.cursor()
-    s.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER)")
     title=request.form["story_title"]
     beginning_text=request.form["story_content"]
     
@@ -140,7 +139,7 @@ def input_story():
 # VERY UNTESTED (WAITING FOR FRONT END)
 @app.route("/edit_story", methods=["POST"])
 def edit_story():
-    db.sqlite3.connect(DB_FILE)
+    db = sqlite3.connect(DB_FILE)
     s = db.cursor()
     title = request.form["story_title"]
     num = s.fetchone(s.execute("SELECT story_id FROM stories WHERE title = (?)", title))[0]
@@ -151,7 +150,7 @@ def edit_story():
 
 #displays latest edit
 def dis_latest_edit():
-    db.sqlite3.connect(DB_FILE)
+    db = sqlite3.connect(DB_FILE)
     s = db.cursor()
     title=request.form["story_title"]
     s.execute("SELECT MAX(timestamp) FROM stories WHERE title = (?)", title)
@@ -163,7 +162,7 @@ def dis_latest_edit():
     #some method to communicate to front end the latest edit
 
 def display_stories():
-    db.sqlite3.connect(DB_FILE)
+    db = sqlite3.connect(DB_FILE)
     s = db.cursor()
     story = ""
     s.execute("SELECT story_id FROM stories WHERE editor = (?)", session.get("uname"))
@@ -176,14 +175,38 @@ def display_stories():
     db.commit()
     db.close()
 
-@app.route("/story") #temporary just to display story -- backend ppl can change if necessary
-def show_story():
-    return render_template("story.html")
     
-@app.route("/redirect") #was tryna do something but didn't work
-def redir():
+@app.route("/story") #was tryna do something but didn't work
+def show_story():
     story_title = request.args['title']
-    return redirect(url_for("show_story"))
+    db = sqlite3.connect(DB_FILE)
+    s = db.cursor()
+
+    editted = s.execute("SELECT editor FROM stories WHERE stories.name = (?)", (story_title,))
+
+    #if the user is amongst the editors
+    for user in editted:
+        if user[0] == session.get('uname'):
+            story_content = []
+            edits = s.execute("SELECT * FROM stories WHERE stories.name = (?)", (story_title,))
+            for s_id in edits:
+                story_content.append((s_id[2]))
+            return render_template("story.html", title=story_title, content=story_content)
+
+    #if the user is not amongst the editors
+    s.execute("SELECT MAX(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
+    highest_time = s.fetchone()[0]
+    print(highest_time)
+    s.execute("SELECT edit FROM stories WHERE timestamp = (?)", (highest_time,))
+    latest_edit = s.fetchone()[0]
+    story_content = [latest_edit]
+                
+    db.commit()
+    db.close()
+    
+    return render_template("story.html", title=story_title, content=story_content)
+    
+    
 
 if __name__ == "__main__":
     app.debug = True

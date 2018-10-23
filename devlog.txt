@@ -116,23 +116,32 @@ thomasZ -- 2018-10-23 16:58
 -------------------------------------------------------------
 Went to the Dojo and there were some backend errors that I went over with Rayray-sunshine
 
-Note: in order for our thing to work, we need a pre-existing story in our database! Otherwise, story_id is undefined and mere logging in does not work
+Note: in order for our thing to work, we need a pre-existing story in our database to add a story because story_id is a None-type otherwise
+
+Another note: also, if the db is deleted and you register, you cannot get to the welcome page after logging in because "no such table: stories"
+=============================================================
+thomasZ -- 2018-10-23 19:39
+-------------------------------------------------------------
+0. The stories now properly display when their links are clicked on
+1. Viewing editted stories shows entire story history
+2. Viewing new stories only show latest addition
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
-<Thing fristL did.> =============================================================
+<Thing fristL did.>
+=============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
-<Thing fristL did.> =============================================================
+<Thing fristL did.>
+=============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
-<Thing fristL did.> =============================================================
+<Thing fristL did.>
+=============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
-<Thing fristL did.> =============================================================
-clydeS -- 2999-12-31 23:59
--------------------------------------------------------------
-<Thing fristL did.> =============================================================
+<Thing fristL did.>
+=============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
 <Thing fristL did.> 
