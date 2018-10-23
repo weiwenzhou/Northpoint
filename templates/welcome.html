@@ -19,12 +19,8 @@
 <hr>
 
 <p> Stories not edited </p>
-
-{% for each in stories %}
-<p>
-  {{ each }}
-<p>
-<br>
+{% for entry in stories %}
+<p> <a href="/edit_story">{{ entry[0] }}</a> </p>
 {% endfor %}
 
 <a type="button" href="/edit">Edit</a>
