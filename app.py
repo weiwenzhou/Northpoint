@@ -8,6 +8,7 @@ DB_FILE = "northpoint.db"
 app = Flask(__name__)
 app.secret_key=os.urandom(32)
 num_of_stories = 0
+story_title = ""
 
 @app.route("/", methods=['POST', 'GET'])
 def home():
@@ -162,10 +163,11 @@ def display_stories():
 
 @app.route("/story") #temporary just to display story -- backend ppl can change if necessary
 def show_story():
-    print('exdee')
+    return render_template("story.html")
     
-@app.route("/redirect/<story_title>") #was tryna do something but didn't work
+@app.route("/redirect") #was tryna do something but didn't work
 def redir():
+    story_title = request.args['title']
     return redirect(url_for("show_story"))
 
 if __name__ == "__main__":

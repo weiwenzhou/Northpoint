@@ -108,9 +108,10 @@ thomasZ -- 2018-10-23 00:52
 -------------------------------------------------------------
 I made the stories show on the welcome.html page in different categories, if they have been edited by user or not. Biggest issue I have is when I made them into hyperlinks, how do the hyperlinks convey identifying information so it can display correct story information? I was thinking query strings but it didn't work for some reason (QAF post).
 =============================================================
-clydeS -- 2999-12-31 23:59
+teamN -- 2018-10-23 14:05
 -------------------------------------------------------------
-<Thing fristL did.> =============================================================
+We helped Thomas with front end information passing using requests
+=============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
 <Thing fristL did.> =============================================================
