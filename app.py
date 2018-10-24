@@ -146,7 +146,7 @@ def edit():
 def edit_story():
     db = sqlite3.connect(DB_FILE)
     s = db.cursor()
-    title = request.args['title']
+    title = request.form['title']
     print("TITLE: ", title)
     s.execute("SELECT story_id FROM stories WHERE stories.name = (?)", (title,))
     num = s.fetchone()[0]
@@ -157,34 +157,6 @@ def edit_story():
     return redirect(url_for("login"))
 
 
-
-##displays latest edit
-#def dis_latest_edit():
-#    db = sqlite3.connect(DB_FILE)
-#    s = db.cursor()
-#    title=request.form["story_title"]
-#    s.execute("SELECT MAX(timestamp) FROM stories WHERE title = (?)", title)
-#    highest_time = s.fetchone()[0]
-#    s.execute("SELECT edit FROM stories WHERE timestamp = (?)", highest_time)
-#    latest_edit = s.fetchone()[0]
-#    db.commit()
-#    db.close()
-#    #some method to communicate to front end the latest edit
-#
-#def display_stories():
-#    db = sqlite3.connect(DB_FILE)
-#    s = db.cursor()
-#    story = ""
-#    s.execute("SELECT story_id FROM stories WHERE editor = (?)", session.get("uname"))
-#    for s_id in s:
-#        s.execute("SELECT edit FROM stories WHERE story_id = (?)", s_id[0])
-#        for line in s:
-#            story += line + "\n"
-#        #display story to frontend
-#        story = ""
-#    db.commit()
-#    db.close()
-#
 
 @app.route("/story") #was tryna do something but didn't work
 def show_story():
