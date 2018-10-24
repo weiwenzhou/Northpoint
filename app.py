@@ -193,6 +193,7 @@ def show_story():
     ####but if i put it here, then editted does not have anything
     ####
     
+    
     print("my name is", session.get('uname'))
     
     #if the user is amongst the editors
