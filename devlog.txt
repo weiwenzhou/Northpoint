@@ -126,9 +126,12 @@ thomasZ -- 2018-10-23 19:39
 1. Viewing editted stories shows entire story history
 2. Viewing new stories only show latest addition
 =============================================================
-weiwenZ -- 2018-10-23 19:40
+weiwenZ -- 2018-10-23 20:35
 -------------------------------------------------------------
-Updated README 
+0. Updated README 
+1. Created a stories.csv to hold sample stories (Only single edits)
+2. Added tester.py (in util dir) to facilitate adding sample stories
+from csv to db 
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
