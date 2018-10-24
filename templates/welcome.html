@@ -21,11 +21,12 @@
 <p> Stories not edited </p>
 {% for entry in noeditstories %}
 <p> <a href="/story?title={{ entry[0] }}">{{ entry[0] }}</a> </p>
-{% endfor %}
 
-<a type="button" href="/edit">Edit</a>
+<a type="button" href="/edit?title={{ entry[0] }}">Edit</a>
 <b> THIS IS JUST A TEMPORARY BUTTON TO SEE IF EDIT.HTML RENDERS RIGHT </b>
 <hr>
+
+{% endfor %}
 
 <p> Stories you've contributed to </p>
 {% for entry in stories %}
