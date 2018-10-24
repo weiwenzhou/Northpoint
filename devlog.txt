@@ -150,9 +150,18 @@ huiminW and weiwenZ -- 2018-10-24 13:26
 number of stories can be incremented and stored correctly so no
 two stories have the same id.
 =============================================================
-clydeS -- 2999-12-31 23:59
+thomasZ -- 2018-10-24 18:31
 -------------------------------------------------------------
-<Thing fristL did.>
+Attempted to resolve some of the bugs discovered in class
+I was able to locate the source of (some) bugs but unable to implement a successful solution yet; comments have been placed in the code
+0. The "duplicate" story bug (meaning that it appears in editted and uneditted) is because the program cannot recognize that an edit entry in the table stories is NOT automatically a story; it's only part of the story (unless it's first element) -- will need to make something to display only the first edit of any story as a hyperlink only
+
+1. The reason why editted stories still do not showcase the entire story is because for some reason, my putting other cursor.execute() commands wipes the variable containing the editors (lines 181 through 194 in app.py)
+
+2. I discovered the no-users issue but I don't think it's necessarily due to backspace like Weiwen speculated. I believe it's when you edit the code, the session updates and wipes itself but what's already RENDERED on the page doesn't go away so if you try to add a new story then, it'll have "no user"
+
+3. I made a "go back" button from story.html to welcome.html
+4. The story titles now display their original authors
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------

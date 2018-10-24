@@ -39,8 +39,20 @@ def login():
         u = db.cursor()
         v = db.cursor()
 
+        ############### we need to make it so that the function will not select edits of a story by different authors as its "own story"
+        ############### the reason why it's showing the same story with multiple edits by multiple authors is because
+        ############### the program thinks each edit by a different author is its own story (when it really is not)
+        ############### and therefore puts the same story in both the editted and not editted sections of welcome.html
+           #first_time = s.execute("SELECT MIN(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
+           #first_time = first_time.fetchone()[0]
+           #first_author = s.execute("SELECT editor FROM stories WHERE stories.name = (?) AND stories.timestamp = (?)", (story_title, first_time,)).fetchone()[0]
+
         u.execute("SELECT name FROM stories WHERE stories.editor = (?)", (username,)) #edited
         v.execute("SELECT name FROM stories WHERE NOT stories.editor = (?)", (username,)) #non-edited
+        ###############
+        ###############
+        ###############
+        ###############
         return render_template("welcome.html", stories=u, noeditstories=v)
     return render_template("login.html",Title = 'Login')
 
@@ -157,34 +169,60 @@ def edit_story():
 
 
 
-@app.route("/story") #was tryna do something but didn't work
+@app.route("/story")
 def show_story():
     story_title = request.args['title']
+    print("story title is", story_title)
     db = sqlite3.connect(DB_FILE)
     s = db.cursor()
 
     editted = s.execute("SELECT editor FROM stories WHERE stories.name = (?)", (story_title,))
 
+    ####
+    ####if i put this for loop here, editted has things
+    for i in editted:
+        print(i)
+        print('ye')
+
+    
+    first_time = s.execute("SELECT MIN(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
+    first_time = first_time.fetchone()[0]
+
+    first_author = s.execute("SELECT editor FROM stories WHERE stories.name = (?) AND stories.timestamp = (?)", (story_title, first_time,)).fetchone()[0]
+
+    ####but if i put it here, then editted does not have anything
+    ####
+    
+    print("my name is", session.get('uname'))
+    
     #if the user is amongst the editors
+    
     for user in editted:
+        
         if user[0] == session.get('uname'):
+
+            print('im an editor!')
+            
             story_content = []
             edits = s.execute("SELECT * FROM stories WHERE stories.name = (?)", (story_title,))
             for s_id in edits:
                 story_content.append((s_id[2]))
-            return render_template("story.html", title=story_title, content=story_content)
+            return render_template("story.html", title=story_title, content=story_content, author=first_author)
 
     #if the user is not amongst the editors
+
+    print("im NOT an edutor")
+    
     s.execute("SELECT MAX(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
     highest_time = s.fetchone()[0]
-    print(highest_time)
+    #print(highest_time)
     s.execute("SELECT edit FROM stories WHERE timestamp = (?)", (highest_time,))
     latest_edit = s.fetchone()[0]
     story_content = [latest_edit]
     db.commit()
     db.close()
 
-    return render_template("story.html", title=story_title, content=story_content)
+    return render_template("story.html", title=story_title, content=story_content, author=first_author)
 
 
 

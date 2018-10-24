@@ -1,6 +1,6 @@
 {% extends "template.html" %}
 {% block title %} | Welcome {% endblock %}
-{% block head %} Welcome {{ session["uname"] }} !{% endblock %}
+{% block head %} Welcome {{ session["uname"] }}!{% endblock %}
 
 {% block body %}
 <form action="/results" methods=['GET']>
