@@ -37,3 +37,9 @@ $ . <name_of_vEnv>/bin/activate
 (<name_of_vEnv>) $ pip3 install flask
 (<name_of_vEnv>) $ pip3 install wheel
 ```
+### Contributors
+* Hui Min Wu
+* Thomas Zhao
+* Wei Wen Zhou
+* Tania Cao Su
+
