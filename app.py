@@ -128,7 +128,10 @@ def input_story():
     beginning_text=request.form["story_content"]
     
     s.execute("SELECT MAX(story_id) FROM stories")
-    num_of_stories = s.fetchone()[0] + 1
+    if s.fetchone()[0] is int:
+        num_of_stories = s.fetchone()[0] + 1
+    else:
+        num_of_stories = 0
     print("NUM OF STORES:", num_of_stories)
     params = (num_of_stories, title, beginning_text, session.get("uname"), int(time.time()))
     s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
