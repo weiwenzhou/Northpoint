@@ -136,6 +136,8 @@ from csv to db
 weiwenZ -- 2018-10-23 21:00
 -------------------------------------------------------------
 0. Fix Thomas error regarding "no such table: stories"
+1. Started ONE PIG story. -ADD to the story about your day or anything 
+if stil exists.
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
