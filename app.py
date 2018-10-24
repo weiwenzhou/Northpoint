@@ -125,10 +125,8 @@ def input_story():
     beginning_text=request.form["story_content"]
 
     s.execute("SELECT MAX(story_id) FROM stories")
-    if s.fetchone()[0] is int:
-        num_of_stories = s.fetchone()[0] + 1
-    else:
-        num_of_stories = 0
+    print("FETCHONE RETURNS INT")
+    num_of_stories = int(s.fetchone()[0]) + 1
     print("NUM OF STORES:", num_of_stories)
     params = (num_of_stories, title, beginning_text, session.get("uname"), int(time.time()))
     s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
@@ -146,11 +144,12 @@ def edit():
 def edit_story():
     db = sqlite3.connect(DB_FILE)
     s = db.cursor()
-    title = request.form['title']
+    print(request.form)
+    title = request.args['title']
     print("TITLE: ", title)
     s.execute("SELECT story_id FROM stories WHERE stories.name = (?)", (title,))
     num = s.fetchone()[0]
-    edits = request.form["story_content"]
+    edits = request.args["story_content"]
     s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", (num, title, edits, session.get("uname"), int(time.time())))
     db.commit();
     db.close();
