@@ -139,13 +139,16 @@ weiwenZ -- 2018-10-23 21:00
 1. Started ONE PIG story. -ADD to the story about your day or anything 
 if stil exists.
 =============================================================
-clydeS -- 2999-12-31 23:59
+huiminW -- 2018-10-24 13:25
 -------------------------------------------------------------
-<Thing fristL did.>
+0. Update the edit feature so passing the title doesn't return an error.
+Used a readonly input for display and retrieving title between functions.
 =============================================================
-clydeS -- 2999-12-31 23:59
+huiminW and weiwenZ -- 2018-10-24 13:26
 -------------------------------------------------------------
-<Thing fristL did.>
+0. Typecasted the result from the query into an int so the
+number of stories can be incremented and stored correctly so no
+two stories have the same id.
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
