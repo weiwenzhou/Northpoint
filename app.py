@@ -47,13 +47,23 @@ def login():
            #first_time = first_time.fetchone()[0]
            #first_author = s.execute("SELECT editor FROM stories WHERE stories.name = (?) AND stories.timestamp = (?)", (story_title, first_time,)).fetchone()[0]
 
-        u.execute("SELECT name FROM stories WHERE stories.editor = (?)", (username,)) #edited
-        v.execute("SELECT name FROM stories WHERE NOT stories.editor = (?)", (username,)) #non-edited
+        u.execute("SELECT DISTINCT name FROM stories WHERE stories.editor = (?)", (username,)) #editted
+        v.execute("SELECT DISTINCT name FROM stories WHERE NOT stories.editor = (?)", (username,)) #non-edited
+        not_editted = v.fetchall()
+        editted = u.fetchall()
         ###############
         ###############
         ###############
         ###############
-        return render_template("welcome.html", stories=u, noeditstories=v)
+        print(not_editted)
+        print(editted)
+        for each in not_editted:
+            if each in editted:
+                print(1)
+                not_editted.remove(each)
+        db.commit();
+        db.close();
+        return render_template("welcome.html", stories=editted, noeditstories=not_editted)
     return render_template("login.html",Title = 'Login')
 
 @app.route("/auth", methods=['POST'])
