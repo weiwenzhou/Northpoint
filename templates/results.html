@@ -4,9 +4,14 @@
 
 {% block body %}
 
-<form action="/results" method="POST">
-  Enter a keyword: <input type="text" name="keyword"> <br><br>  
+<form action="/results" method="GET">
+  Enter a keyword: <input type="text" name="search_term" value="{{ current_search }}"> <br><br>  
   <button type="submit">Submit</button>
 </form>
+
+<p> Results </p>
+{% for row in search_results %}
+<p> <a href="/story?title={{ row[0] }}">{{ row[0] }}</a> </p>
+{% endfor %}
 
 {% endblock %}

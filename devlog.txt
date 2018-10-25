@@ -163,9 +163,13 @@ I was able to locate the source of (some) bugs but unable to implement a success
 3. I made a "go back" button from story.html to welcome.html
 4. The story titles now display their original authors
 =============================================================
-clydeS -- 2999-12-31 23:59
+weiwenZ -- 2018-10-24 21:00
 -------------------------------------------------------------
-<Thing fristL did.> 
+0. Fix the error with searching for stories,/results. 
+Search is not case sensitive and only requires the search term
+to be in the title.
+Note: I did not close the db. I am not sure how to remedy it. 
+Backend peeps can you look into it.
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------

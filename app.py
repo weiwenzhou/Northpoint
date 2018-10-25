@@ -116,19 +116,17 @@ def logout():
 @app.route("/create_story", methods=['POST', 'GET'])
 def create_story():
     return render_template("create.html", Title="tis make story")
-"""
+
 @app.route("/results", methods=['GET'])
 def results():
     db = sqlite3.connect(DB_FILE)
-    s = db.cursor()
-    search=request.form["search_term"]
-    s.execute("SELECT {0},{1},{2},{3} FROM {4} WHERE regexp_like({5},{6},'i')".format("story_id","name", "editor", "timestamp", "name", "search")
-    for row in s:
-        print(row)
-    db.commit();
-    db.close();
-    return render_template("results.html", Title="Results")
-"""
+    r = db.cursor()
+    search=request.args["search_term"]
+    results = r.execute("SELECT name, timestamp FROM stories WHERE name LIKE '%{0}%' ORDER BY timestamp;".format(search))
+    #db.commit();
+    #db.close();
+    return render_template("results.html", current_search=search, search_results=r)
+
 @app.route("/input_story", methods=['POST'])
 def input_story():
     db = sqlite3.connect(DB_FILE)
