@@ -132,7 +132,7 @@ def results():
     db = sqlite3.connect(DB_FILE)
     r = db.cursor()
     search=request.args["search_term"]
-    r.execute("SELECT name, timestamp FROM stories WHERE name LIKE '%{0}%' ORDER BY timestamp;".format(search))
+    r.execute("SELECT name, timestamp, editor FROM stories WHERE name LIKE '%{0}%' ORDER BY timestamp;".format(search))
     results = r.fetchall()
     db.commit();
     db.close();
