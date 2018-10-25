@@ -11,7 +11,7 @@
 
 <p> Results </p>
 {% for row in search_results %}
-<p> <a href="/story?title={{ row[0] }}">{{ row[0] }}</a> </p>
+<p> <a href="/story?title={{ row[0] }}">{{ row[0] }}</a> by {{ row[2] }}</p>
 {% endfor %}
 
 {% endblock %}
