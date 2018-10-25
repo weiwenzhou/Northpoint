@@ -42,12 +42,20 @@ weiwenZ -- 2018-10-16 23:47
 0. Everyone should know, understand and agree on the every aspect of the design 
 regardless if you are working on that part or not. Communication is key.
 1. Develop incrementally rather than just putting together a bunch of code to just make it work
-2. Have files/functions/templates that do one thing very well instead of everything. 
+2. Have files/functions/templates that do one thing very well instead of everything.
+=============================================================
+taniaC -- 2018-10-17 13:30
+-------------------------------------------------------------
+0. Created login.html, template.html, welcome.html and login route
 =============================================================
 thomasZ -- 2018-10-18 13:14
 -------------------------------------------------------------
 0. Created home.html and register.html
 1. Created the input and redirecting associated with these pages
+=============================================================
+taniaC -- 2018-10-19 14:04
+-------------------------------------------------------------
+0. Created register route and updated register.html
 =============================================================
 thomasZ -- 2018-10-19 14:05
 -------------------------------------------------------------
