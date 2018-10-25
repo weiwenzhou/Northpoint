@@ -44,11 +44,28 @@ regardless if you are working on that part or not. Communication is key.
 1. Develop incrementally rather than just putting together a bunch of code to just make it work
 2. Have files/functions/templates that do one thing very well instead of everything. 
 =============================================================
+huiminW -- 2018-10-17 14:05
+-------------------------------------------------------------
+0. Updated devlog to comply with formatting standards
+=============================================================
+huiminW -- 2018-10-18 12:10
+-------------------------------------------------------------
+Bug: Whenever you log out, the login page flashes, "Incorrect username"
+I tried to remedy this by adjusting the logic and cases but it did not work.
+I await class time to dicuss this matter with my group
+=============================================================
 thomasZ -- 2018-10-18 13:14
 -------------------------------------------------------------
 0. Created home.html and register.html
 1. Created the input and redirecting associated with these pages
 =============================================================
+huiminW -- 2018-10-18 20:56
+-------------------------------------------------------------
+0. Realized that I forgot that I needed to open and close the connection
+to a database in the same method so I fixed said issue
+1. Removed our usage of fetchall and used for loop instead to
+get all the users and pwds from our database for authentification
+==============================================================
 thomasZ -- 2018-10-19 14:05
 -------------------------------------------------------------
 Created more template files for web page displaying (results, welcome, edit_template)
@@ -84,7 +101,7 @@ have been created.
 =============================================================
 huiminW -- 2018-10-22 13:49
 -------------------------------------------------------------
-0. Fixed bugs with creating a story
+0. Fixed minor syntax errors with creating a story
 =============================================================
 thomasZ -- 2018-10-22 14:02
 -------------------------------------------------------------
@@ -119,6 +136,11 @@ Went to the Dojo and there were some backend errors that I went over with Rayray
 Note: in order for our thing to work, we need a pre-existing story in our database to add a story because story_id is a None-type otherwise
 
 Another note: also, if the db is deleted and you register, you cannot get to the welcome page after logging in because "no such table: stories"
+=============================================================
+huiminW -- 2018-10-23 18:19
+-------------------------------------------------------------
+0. Attempted a method that would grab the story title for editing but ultimately
+failed. Might have been because I used the same jinja variable twice.  
 =============================================================
 thomasZ -- 2018-10-23 19:39
 -------------------------------------------------------------
