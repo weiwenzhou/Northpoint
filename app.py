@@ -122,10 +122,11 @@ def results():
     db = sqlite3.connect(DB_FILE)
     r = db.cursor()
     search=request.args["search_term"]
-    results = r.execute("SELECT name, timestamp FROM stories WHERE name LIKE '%{0}%' ORDER BY timestamp;".format(search))
-    #db.commit();
-    #db.close();
-    return render_template("results.html", current_search=search, search_results=r)
+    r.execute("SELECT name, timestamp FROM stories WHERE name LIKE '%{0}%' ORDER BY timestamp;".format(search))
+    results = r.fetchall()
+    db.commit();
+    db.close();
+    return render_template("results.html", current_search=search, search_results=results)
 
 @app.route("/input_story", methods=['POST'])
 def input_story():
@@ -182,7 +183,7 @@ def show_story():
         print(i)
         print('ye')
 
-    
+
     first_time = s.execute("SELECT MIN(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
     first_time = first_time.fetchone()[0]
 
@@ -190,18 +191,18 @@ def show_story():
 
     ####but if i put it here, then editted does not have anything
     ####
-    
-    
+
+
     print("my name is", session.get('uname'))
-    
+
     #if the user is amongst the editors
-    
+
     for user in editted:
-        
+
         if user[0] == session.get('uname'):
 
             print('im an editor!')
-            
+
             story_content = []
             edits = s.execute("SELECT * FROM stories WHERE stories.name = (?)", (story_title,))
             for s_id in edits:
@@ -211,7 +212,7 @@ def show_story():
     #if the user is not amongst the editors
 
     print("im NOT an edutor")
-    
+
     s.execute("SELECT MAX(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
     highest_time = s.fetchone()[0]
     #print(highest_time)
