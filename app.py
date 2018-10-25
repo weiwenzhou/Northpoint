@@ -13,8 +13,9 @@ edit_story_title = ""
 
 db = sqlite3.connect(DB_FILE)
 c = db.cursor()
+#Creating our tables in our database
 c.execute("CREATE TABLE IF NOT EXISTS stories (story_id INTEGER, name TEXT, edit TEXT, editor TEXT, timestamp INTEGER)")
-#c.execute("IF SELECT COUNT(*) FROM stories = 0 THEN INSERT VALUES (0, 'default', 'default-content', 'default-editor', 0)") #how do we do the if statement??
+c.execute("CREATE TABLE IF NOT EXISTS users (name TEXT, pwd TEXT)")
 
 @app.route("/", methods=['POST', 'GET'])
 def home():
@@ -70,15 +71,13 @@ def login():
 def auth():
     db = sqlite3.connect(DB_FILE)
     u = db.cursor()
-    u.execute("CREATE TABLE IF NOT EXISTS users (name TEXT, pwd TEXT)")
     givenUname=request.form["username"]
     givenPwd=request.form["password"]
     u.execute("SELECT name, pwd FROM users");
     found = False #if the user is found
-    for person in u:
-        #print(person[0], person[1])
+    for person in u: #for every person in the users table
         if givenUname==person[0]:
-            found = True
+            found = True #user exists
             if givenPwd==person[1]:
                 session["uname"]=givenUname
                 if session.get("error"):
@@ -103,7 +102,7 @@ def create_account():
     givenPwdB=request.form["confirm_pass"]
     u.execute("SELECT name, pwd FROM users");
     for person in u:
-        if givenUname==person[0]:
+        if givenUname==person[0]: #checks if your username is unique
             flash("Username taken")# username already exists
     if givenPwdA != givenPwdB:
         flash("Passwords don\'t match") # given passwords don't match
@@ -127,16 +126,28 @@ def logout():
 def create_story():
     return render_template("create.html", Title="tis make story")
 
+'''
+Used in our search bar.
+Takes the input from the user and outputs the data from least recent to most recent.
+'''
 @app.route("/results", methods=['GET'])
 def results():
     db = sqlite3.connect(DB_FILE)
     r = db.cursor()
     search=request.args["search_term"]
+    #selects stories that contain the text the user has searched anywhere in it's name
     r.execute("SELECT name, timestamp, editor FROM stories WHERE name LIKE '%{0}%' ORDER BY timestamp;".format(search))
     results = r.fetchall()
     db.commit();
     db.close();
     return render_template("results.html", current_search=search, search_results=results)
+
+'''
+Used when user wants to create a story
+First checks if the title is a duplicate title from any other story
+If the title already exists, users will have to use a different one.
+If not, the story will get placed in our stories database.
+'''
 
 @app.route("/input_story", methods=['POST'])
 def input_story():
@@ -145,7 +156,7 @@ def input_story():
     title=request.form["story_title"]
     beginning_text=request.form["story_content"]
     s.execute("SELECT name FROM stories WHERE stories.name = (?) LIMIT 1", (title,))
-    if s.fetchone():
+    if s.fetchone(): #returns true if title already exists
         print("TITLE ALREADY EXISTS")
         flash("Please input a different title")
         return redirect(url_for("create_story"))
@@ -157,7 +168,7 @@ def input_story():
         params = (num_of_stories, title, beginning_text, session.get("uname"), int(time.time()))
         s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
         db.commit();
-        db.close();
+        db.closer();
         return redirect(url_for("login"))
 
 @app.route("/edit")
@@ -166,6 +177,9 @@ def edit():
     print(edit_story_title)
     return render_template("edit.html", Title="Edit", e_story_title = edit_story_title)
 
+'''
+Used when users want to edit a story
+'''
 @app.route("/edit_story")
 def edit_story():
     db = sqlite3.connect(DB_FILE)
@@ -176,7 +190,7 @@ def edit_story():
     s.execute("SELECT story_id FROM stories WHERE stories.name = (?)", (title,))
     num = s.fetchone()[0]
     edits = request.args["story_content"]
-    s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", (num, title, edits, session.get("uname"), int(time.time())))
+    s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", (num, title, edits, session.get("uname"), int(time.time()))) #inserts edits into database
     db.commit();
     db.close();
     return redirect(url_for("login"))
@@ -238,7 +252,6 @@ def show_story():
     db.close()
 
     return render_template("story.html", title=story_title, content=story_content, author=first_author)
-
 
 
 if __name__ == "__main__":
