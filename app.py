@@ -133,16 +133,21 @@ def input_story():
     s = db.cursor()
     title=request.form["story_title"]
     beginning_text=request.form["story_content"]
-
-    s.execute("SELECT MAX(story_id) FROM stories")
-    print("FETCHONE RETURNS INT")
-    num_of_stories = int(s.fetchone()[0]) + 1
-    print("NUM OF STORES:", num_of_stories)
-    params = (num_of_stories, title, beginning_text, session.get("uname"), int(time.time()))
-    s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
-    db.commit();
-    db.close();
-    return redirect(url_for("login"))
+    s.execute("SELECT name FROM stories WHERE stories.name = (?) LIMIT 1", (title,))
+    if s.fetchone():
+        print("TITLE ALREADY EXISTS")
+        flash("Please input a different title")
+        return redirect(url_for("create_story"))
+    else:
+        s.execute("SELECT MAX(story_id) FROM stories")
+        print("FETCHONE RETURNS INT")
+        num_of_stories = int(s.fetchone()[0]) + 1
+        print("NUM OF STORES:", num_of_stories)
+        params = (num_of_stories, title, beginning_text, session.get("uname"), int(time.time()))
+        s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
+        db.commit();
+        db.close();
+        return redirect(url_for("login"))
 
 @app.route("/edit")
 def edit():

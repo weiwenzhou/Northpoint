@@ -171,9 +171,9 @@ to be in the title.
 Note: I did not close the db. I am not sure how to remedy it. 
 Backend peeps can you look into it.
 =============================================================
-clydeS -- 2999-12-31 23:59
+huiminW -- 2018-10-25 14:01
 -------------------------------------------------------------
-<Thing fristL did.> 
+0. Implemented check so users dont input the same title 
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------

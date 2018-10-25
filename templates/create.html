@@ -2,7 +2,10 @@
 {% block head %} Create a story! {% endblock %}
 {% block title %} | Create {% endblock %}
 {% block body %}
-
+{% set msgs = get_flashed_messages() %}
+{% for msg in msgs %}
+<p style="color: red">{{msg}}</p>
+{% endfor %}
 <br>
 Please enter a story title:
 
