@@ -90,7 +90,8 @@ thomasZ -- 2018-10-22 00:32
 2. Update gitignore
 3. Added more app.routes to "app.py"
 
-NOTE: One bug is that when invalid information is entered for register, the flash error goes to the login page instead.
+NOTE: One bug is that when invalid information is entered for register,
+the flash error goes to the login page instead.
 ==============================================================
 huiminW -- 2018-10-22 0:57
 -------------------------------------------------------------
@@ -119,11 +120,16 @@ those features have not been developed enough yet
 =============================================================
 thomasZ -- 2018-10-22 21:27
 -------------------------------------------------------------
-Made the stories in database table show; however contemplating different solutions for making the hyperlinks KNOW what story they represent
+Made the stories in database table show; however contemplating
+different solutions for making the hyperlinks KNOW what story they
+represent
 =============================================================
 thomasZ -- 2018-10-23 00:52
 -------------------------------------------------------------
-I made the stories show on the welcome.html page in different categories, if they have been edited by user or not. Biggest issue I have is when I made them into hyperlinks, how do the hyperlinks convey identifying information so it can display correct story information? I was thinking query strings but it didn't work for some reason (QAF post).
+I made the stories show on the welcome.html page in different categories,
+if they have been edited by user or not. Biggest issue I have is when I made them into hyperlinks,
+how do the hyperlinks convey identifying information so it can display correct story information?
+I was thinking query strings but it didn't work for some reason (QAF post).
 =============================================================
 teamN -- 2018-10-23 14:05
 -------------------------------------------------------------
@@ -133,9 +139,11 @@ thomasZ -- 2018-10-23 16:58
 -------------------------------------------------------------
 Went to the Dojo and there were some backend errors that I went over with Rayray-sunshine
 
-Note: in order for our thing to work, we need a pre-existing story in our database to add a story because story_id is a None-type otherwise
+Note: in order for our thing to work, we need a pre-existing story in our
+database to add a story because story_id is a None-type otherwise
 
-Another note: also, if the db is deleted and you register, you cannot get to the welcome page after logging in because "no such table: stories"
+Another note: also, if the db is deleted and you register,
+you cannot get to the welcome page after logging in because "no such table: stories"
 =============================================================
 huiminW -- 2018-10-23 18:19
 -------------------------------------------------------------
@@ -175,12 +183,21 @@ two stories have the same id.
 thomasZ -- 2018-10-24 18:31
 -------------------------------------------------------------
 Attempted to resolve some of the bugs discovered in class
-I was able to locate the source of (some) bugs but unable to implement a successful solution yet; comments have been placed in the code
-0. The "duplicate" story bug (meaning that it appears in editted and uneditted) is because the program cannot recognize that an edit entry in the table stories is NOT automatically a story; it's only part of the story (unless it's first element) -- will need to make something to display only the first edit of any story as a hyperlink only
+I was able to locate the source of (some) bugs but unable to implement a
+successful solution yet; comments have been placed in the code
+0. The "duplicate" story bug (meaning that it appears in editted and uneditted)
+is because the program cannot recognize that an edit entry in the table stories is
+NOT automatically a story; it's only part of the story (unless it's first element) --
+will need to make something to display only the first edit of any story as a hyperlink only
 
-1. The reason why editted stories still do not showcase the entire story is because for some reason, my putting other cursor.execute() commands wipes the variable containing the editors (lines 181 through 194 in app.py)
+1. The reason why editted stories still do not showcase the entire story is
+because for some reason, my putting other cursor.execute() commands wipes the
+variable containing the editors (lines 181 through 194 in app.py)
 
-2. I discovered the no-users issue but I don't think it's necessarily due to backspace like Weiwen speculated. I believe it's when you edit the code, the session updates and wipes itself but what's already RENDERED on the page doesn't go away so if you try to add a new story then, it'll have "no user"
+2. I discovered the no-users issue but I don't think it's necessarily
+due to backspace like Weiwen speculated. I believe it's when you edit the code,
+the session updates and wipes itself but what's already RENDERED on the page
+doesn't go away so if you try to add a new story then, it'll have "no user"
 
 3. I made a "go back" button from story.html to welcome.html
 4. The story titles now display their original authors
@@ -201,6 +218,18 @@ huiminW -- 2018-10-25 16:16
 -------------------------------------------------------------
 0. Added more comments throughout the code and reorganized functions
 =============================================================
+thomasZ -- 2018-10-25 21:47
+-------------------------------------------------------------
+0. Moved the og_author(story_title) function from laptop to app.py
+1. Fixed story displaying code; stories should display most recent
+line when people have not contributed yet, should display entire
+story when they have
+2. Added go back hyperlink to "create story" page
+=============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.>
+=============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
 <Thing fristL did.> 
@@ -208,3 +237,32 @@ clydeS -- 2999-12-31 23:59
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
 <Thing fristL did.> 
+=============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> 
+=============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> 
+=============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> 
+=============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> 
+=============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> 
+=============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> 
+=============================================================
+clydeS -- 2999-12-31 23:59
+-------------------------------------------------------------
+<Thing fristL did.> 
+

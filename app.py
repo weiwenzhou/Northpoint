@@ -157,7 +157,7 @@ def input_story():
         params = (num_of_stories, title, beginning_text, session.get("uname"), int(time.time()))
         s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
         db.commit();
-        db.closer();
+        db.close();
         return redirect(url_for("login"))
 
 @app.route("/edit")
@@ -193,40 +193,20 @@ def show_story():
     db = sqlite3.connect(DB_FILE)
     s = db.cursor()
 
-    editted = s.execute("SELECT editor FROM stories WHERE stories.name = (?)", (story_title,))
-
-    ####
-    ####if i put this for loop here, editted has things
-    for i in editted:
-        print(i)
-        print('ye')
-
-
-    first_time = s.execute("SELECT MIN(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
-    first_time = first_time.fetchone()[0]
-
-    first_author = s.execute("SELECT editor FROM stories WHERE stories.name = (?) AND stories.timestamp = (?)", (story_title, first_time,)).fetchone()[0]
-
-    ####but if i put it here, then editted does not have anything
-    ####
-
-
-    print("my name is", session.get('uname'))
-
+    editted = s.execute("SELECT DISTINCT editor FROM stories WHERE stories.name = (?)", (story_title,)).fetchall()
+    print(editted)
+    first_author = og_author(story_title)
+    
     #if the user is amongst the editors
-
-    for user in editted:
-
-        if user[0] == session.get('uname'):
-
-            print('im an editor!')
-
+    for user_tuple in editted:
+        if session.get('uname') in user_tuple[0]:
+        
             story_content = []
             edits = s.execute("SELECT * FROM stories WHERE stories.name = (?)", (story_title,))
-            for s_id in edits:
-                story_content.append((s_id[2]))
+            for edit in edits:
+                story_content.append((edit[2]))
             return render_template("story.html", title=story_title, content=story_content, author=first_author)
-
+        
     #if the user is not amongst the editors
 
     print("im NOT an edutor")
