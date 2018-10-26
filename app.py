@@ -40,27 +40,16 @@ def login():
         u = db.cursor()
         v = db.cursor()
 
-        ############### we need to make it so that the function will not select edits of a story by different authors as its "own story"
-        ############### the reason why it's showing the same story with multiple edits by multiple authors is because
-        ############### the program thinks each edit by a different author is its own story (when it really is not)
-        ############### and therefore puts the same story in both the editted and not editted sections of welcome.html
-           #first_time = s.execute("SELECT MIN(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
-           #first_time = first_time.fetchone()[0]
-           #first_author = s.execute("SELECT editor FROM stories WHERE stories.name = (?) AND stories.timestamp = (?)", (story_title, first_time,)).fetchone()[0]
-
         u.execute("SELECT DISTINCT name FROM stories WHERE stories.editor = (?)", (username,)) #editted
         v.execute("SELECT DISTINCT name FROM stories WHERE NOT stories.editor = (?)", (username,)) #non-edited
         not_editted = v.fetchall()
         editted = u.fetchall()
-        ###############
-        ###############
-        ###############
-        ###############
+
         print(not_editted)
         print(editted)
         for each in not_editted:
             if each in editted:
-                print(1)
+                #print(1)
                 not_editted.remove(each)
         db.commit();
         db.close();
@@ -252,6 +241,18 @@ def show_story():
     db.close()
 
     return render_template("story.html", title=story_title, content=story_content, author=first_author)
+
+#=====================================
+# MISC FUNCTIONS
+#=====================================
+
+def og_author(story_title):
+    db = sqlite3.connect(DB_FILE)
+    s = db.cursor()
+    first_time = s.execute("SELECT MIN(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
+    first_time = first_time.fetchone()[0]
+    first_author = s.execute("SELECT editor FROM stories WHERE stories.name = (?) AND stories.timestamp = (?)", (story_title, first_time,)).fetchone()[0]
+    return first_author
 
 
 if __name__ == "__main__":
