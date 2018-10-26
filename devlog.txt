@@ -271,9 +271,12 @@ taniaC -- 2018-10-26 00:10
 -------------------------------------------------------------
 0. Update devlog.txt to match all work done in project
 =============================================================
-clydeS -- 2999-12-31 23:59
+thomasZ -- 2018-10-26 11:28
 -------------------------------------------------------------
-<Thing fristL did.> 
+0. Added go back hyperlink to results.html
+1. Discovered random bug where not-edited stories wouldn't
+display the editor for one specific account created
+(user: w, pass: w)
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------

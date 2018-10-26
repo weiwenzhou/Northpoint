@@ -6,10 +6,11 @@
 
 <form action="/results" method="GET">
   Enter a keyword: <input type="text" name="search_term" value="{{ current_search }}"> <br><br>  
-  <button type="submit">Submit</button>
+  <button type="submit">Submit</button> <a href="/login">Go back</a>
 </form>
 
-<p> Results </p>
+
+<p> Results: </p>
 {% for row in search_results %}
 <p> <a href="/story?title={{ row[0] }}">{{ row[0] }}</a> by {{ row[2] }}</p>
 {% endfor %}
