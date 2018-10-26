@@ -44,14 +44,13 @@ def login():
         v.execute("SELECT DISTINCT name FROM stories WHERE NOT stories.editor = (?)", (username,)) #non-edited
         not_editted = v.fetchall()
         editted = u.fetchall()
-
         print('not_editted', 'before', not_editted)
         print('editted', 'before', editted)
 
         not_editted_temp = []
         for i in not_editted:
             not_editted_temp.append(i)
-        
+
         for each in not_editted:
             if each in editted:
                 not_editted_temp.remove(each)
@@ -59,6 +58,7 @@ def login():
         
         db.commit();
         db.close();
+
         print('not_editted', 'after', not_editted)
         print('editted', 'after', editted)
         return render_template("welcome.html", stories=editted, noeditstories=not_editted)
@@ -101,8 +101,10 @@ def create_account():
     for person in u:
         if givenUname==person[0]: #checks if your username is unique
             flash("Username taken")# username already exists
+            return render_template("register.html")
     if givenPwdA != givenPwdB:
         flash("Passwords don\'t match") # given passwords don't match
+        return render_template("register.html")
     else:
         u.execute("INSERT INTO users values(?,?)", (givenUname, givenPwdA))
     db.commit();
@@ -162,21 +164,11 @@ def input_story():
         print("FETCHONE RETURNS INT")
         num_of_stories = int(s.fetchone()[0]) + 1
         print("NUM OF STORES:", num_of_stories)
-        params = (num_of_stories, title, beginning_text, session.get("uname"), int(time.time()))
+        params = num_of_stories, title, beginning_text, session.get("uname"), int(time.time())
         s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
-        db.commit();
-        db.close();
+        db.commit()
+        db.close()
         return redirect(url_for("login"))
-
-#### we don't need anymore, delete later
-####
-@app.route("/edit")
-def edit():
-    edit_story_title = request.args['title']
-    print(edit_story_title)
-    return render_template("edit.html", Title="Edit", e_story_title = edit_story_title)
-####
-#### 
 
 '''
 Used when users want to edit a story
@@ -192,9 +184,10 @@ def edit_story():
     s.execute("SELECT story_id FROM stories WHERE stories.name = (?)", (title,))
     num = s.fetchone()[0]
     edits = request.args["story_content"]
-    s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", (num, title, edits, session.get("uname"), int(time.time()))) #inserts edits into database
-    db.commit();
-    db.close();
+    params = (num, title, edits, session.get("uname"), int(time.time())) #inserts edits into database
+    s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
+    db.commit()
+    db.close()
     return redirect(url_for("login"))
 
 
@@ -207,7 +200,7 @@ def show_story():
 
     editted = s.execute("SELECT DISTINCT editor FROM stories WHERE stories.name = (?)", (story_title,)).fetchall()
     first_author = og_author(story_title)
-    
+
     #if the user is amongst the editors
     for user_tuple in editted:
         if session.get('uname') in user_tuple[0]:
@@ -217,7 +210,7 @@ def show_story():
                 story_content.append((edit[2]))
             is_edited = True
             return render_template("story.html", title=story_title, content=story_content, author=first_author, edited_status=is_edited)
-        
+
     #if the user is not amongst the editors
     s.execute("SELECT MAX(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
     highest_time = s.fetchone()[0]
