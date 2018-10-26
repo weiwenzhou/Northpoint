@@ -237,9 +237,11 @@ line when people have not contributed yet, should display entire
 story when they have
 2. Added go back hyperlink to "create story" page
 =============================================================
-clydeS -- 2999-12-31 23:59
+thomasZ -- 2018-10-25 23:01
 -------------------------------------------------------------
-<Thing fristL did.>
+0. Discovered bug with displaying links to stories (fixed)
+1. Implemented editting section for non-editted stories
+2. Connected the front end of this editting section to backend
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------

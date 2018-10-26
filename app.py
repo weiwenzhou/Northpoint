@@ -19,7 +19,7 @@ c.execute("CREATE TABLE IF NOT EXISTS users (name TEXT, pwd TEXT)")
 
 @app.route("/", methods=['POST', 'GET'])
 def home():
-    return render_template("home.html", Title="Northpoint's Story Thingie")
+    return render_template("home.html", Title="The Northpoint Goldfish Storytelling")
 
 #=============================================================
 # LOGIN/REGISTER
@@ -45,14 +45,22 @@ def login():
         not_editted = v.fetchall()
         editted = u.fetchall()
 
-        print(not_editted)
-        print(editted)
+        print('not_editted', 'before', not_editted)
+        print('editted', 'before', editted)
+
+        not_editted_temp = []
+        for i in not_editted:
+            not_editted_temp.append(i)
+        
         for each in not_editted:
             if each in editted:
-                #print(1)
-                not_editted.remove(each)
+                not_editted_temp.remove(each)
+        not_editted = not_editted_temp
+        
         db.commit();
         db.close();
+        print('not_editted', 'after', not_editted)
+        print('editted', 'after', editted)
         return render_template("welcome.html", stories=editted, noeditstories=not_editted)
     return render_template("login.html",Title = 'Login')
 
@@ -160,21 +168,26 @@ def input_story():
         db.close();
         return redirect(url_for("login"))
 
+#### we don't need anymore, delete later
+####
 @app.route("/edit")
 def edit():
     edit_story_title = request.args['title']
     print(edit_story_title)
     return render_template("edit.html", Title="Edit", e_story_title = edit_story_title)
+####
+#### 
 
 '''
 Used when users want to edit a story
 '''
 @app.route("/edit_story")
 def edit_story():
+    print("Request args:", request.args)
     db = sqlite3.connect(DB_FILE)
     s = db.cursor()
     print(request.form)
-    title = request.args['title']
+    title = request.args['story_title']
     print("TITLE: ", title)
     s.execute("SELECT story_id FROM stories WHERE stories.name = (?)", (title,))
     num = s.fetchone()[0]
@@ -189,38 +202,33 @@ def edit_story():
 @app.route("/story")
 def show_story():
     story_title = request.args['title']
-    print("story title is", story_title)
     db = sqlite3.connect(DB_FILE)
     s = db.cursor()
 
     editted = s.execute("SELECT DISTINCT editor FROM stories WHERE stories.name = (?)", (story_title,)).fetchall()
-    print(editted)
     first_author = og_author(story_title)
     
     #if the user is amongst the editors
     for user_tuple in editted:
         if session.get('uname') in user_tuple[0]:
-        
             story_content = []
             edits = s.execute("SELECT * FROM stories WHERE stories.name = (?)", (story_title,))
             for edit in edits:
                 story_content.append((edit[2]))
-            return render_template("story.html", title=story_title, content=story_content, author=first_author)
+            is_edited = True
+            return render_template("story.html", title=story_title, content=story_content, author=first_author, edited_status=is_edited)
         
     #if the user is not amongst the editors
-
-    print("im NOT an edutor")
-
     s.execute("SELECT MAX(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
     highest_time = s.fetchone()[0]
-    #print(highest_time)
     s.execute("SELECT edit FROM stories WHERE timestamp = (?)", (highest_time,))
     latest_edit = s.fetchone()[0]
     story_content = [latest_edit]
+    is_edited = False
     db.commit()
     db.close()
 
-    return render_template("story.html", title=story_title, content=story_content, author=first_author)
+    return render_template("story.html", title=story_title, content=story_content, author=first_author, edited_status=is_edited)
 
 #=====================================
 # MISC FUNCTIONS
