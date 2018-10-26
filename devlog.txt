@@ -63,20 +63,21 @@ thomasZ -- 2018-10-18 13:14
 0. Created home.html and register.html
 1. Created the input and redirecting associated with these pages
 =============================================================
-<<<<<<< HEAD
+taniaC -- 2018-10-18 13:38
+-------------------------------------------------------------
+0. Wrote register route and updated register.html
+=============================================================
 taniaC -- 2018-10-19 14:04
 -------------------------------------------------------------
-0. Created register route and updated register.html
+0. Updated register route
 =============================================================
-=======
-huiminW -- 2018-10-18 20:56
+huiminW -- 2018-10-19 20:56
 -------------------------------------------------------------
 0. Realized that I forgot that I needed to open and close the connection
 to a database in the same method so I fixed said issue
 1. Removed our usage of fetchall and used for loop instead to
 get all the users and pwds from our database for authentification
 ==============================================================
->>>>>>> 91c3764ceaec14e83dfc8ab8b214e1a1c6b3f74e
 thomasZ -- 2018-10-19 14:05
 -------------------------------------------------------------
 Created more template files for web page displaying (results, welcome, edit_template)
@@ -111,6 +112,10 @@ huiminW -- 2018-10-22 0:57
 have been created.
 2. Renamed the create methods for accounts and stories
 =============================================================
+taniaC -- 2018-10-22 13:30
+-------------------------------------------------------------
+0. Wrote register route
+=============================================================
 huiminW -- 2018-10-22 13:49
 -------------------------------------------------------------
 0. Fixed minor syntax errors with creating a story
@@ -141,6 +146,11 @@ I made the stories show on the welcome.html page in different categories,
 if they have been edited by user or not. Biggest issue I have is when I made them into hyperlinks,
 how do the hyperlinks convey identifying information so it can display correct story information?
 I was thinking query strings but it didn't work for some reason (QAF post).
+=============================================================
+taniaC -- 2018-10-23 13:40
+-------------------------------------------------------------
+0. Update results.html
+1. Update results --> contained an error that prevented the program from being runnable
 =============================================================
 teamN -- 2018-10-23 14:05
 -------------------------------------------------------------
@@ -191,6 +201,10 @@ huiminW and weiwenZ -- 2018-10-24 13:26
 number of stories can be incremented and stored correctly so no
 two stories have the same id.
 =============================================================
+taniaC -- 2018-10-24 14:05
+-------------------------------------------------------------
+0. Updated result route to make the program runnable with it
+=============================================================
 thomasZ -- 2018-10-24 18:31
 -------------------------------------------------------------
 Attempted to resolve some of the bugs discovered in class
@@ -221,9 +235,19 @@ to be in the title.
 Note: I did not close the db. I am not sure how to remedy it. 
 Backend peeps can you look into it.
 =============================================================
+taniaC -- 2018-10-25 13:50
+-------------------------------------------------------------
+0. Made final edit to search result route
+1. Added author to the search results (results.html) because different users may create
+   stories with the same story name
+=============================================================
 huiminW -- 2018-10-25 14:01
 -------------------------------------------------------------
 0. Implemented check so users dont input the same title 
+=============================================================
+taniaC -- 2018-10-25 14:05
+-------------------------------------------------------------
+0. Updated devlog.txt to include the work done in the first few coding days
 =============================================================
 huiminW -- 2018-10-25 16:16
 -------------------------------------------------------------
@@ -243,9 +267,9 @@ thomasZ -- 2018-10-25 23:01
 1. Implemented editting section for non-editted stories
 2. Connected the front end of this editting section to backend
 =============================================================
-clydeS -- 2999-12-31 23:59
+taniaC -- 2018-10-26 00:10
 -------------------------------------------------------------
-<Thing fristL did.> 
+0. Update devlog.txt to match all work done in project
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
@@ -259,23 +283,4 @@ clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
 <Thing fristL did.> 
 =============================================================
-clydeS -- 2999-12-31 23:59
--------------------------------------------------------------
-<Thing fristL did.> 
-=============================================================
-clydeS -- 2999-12-31 23:59
--------------------------------------------------------------
-<Thing fristL did.> 
-=============================================================
-clydeS -- 2999-12-31 23:59
--------------------------------------------------------------
-<Thing fristL did.> 
-=============================================================
-clydeS -- 2999-12-31 23:59
--------------------------------------------------------------
-<Thing fristL did.> 
-=============================================================
-clydeS -- 2999-12-31 23:59
--------------------------------------------------------------
-<Thing fristL did.> 
 
