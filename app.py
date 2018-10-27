@@ -3,6 +3,7 @@ import sqlite3
 import os
 import csv
 import time
+import util.getSelect as getSelect
 
 DB_FILE = "northpoint.db"
 app = Flask(__name__)
@@ -55,7 +56,7 @@ def login():
             if each in editted:
                 not_editted_temp.remove(each)
         not_editted = not_editted_temp
-        
+
         db.commit();
         db.close();
 
@@ -131,14 +132,9 @@ Takes the input from the user and outputs the data from least recent to most rec
 '''
 @app.route("/results", methods=['GET'])
 def results():
-    db = sqlite3.connect(DB_FILE)
-    r = db.cursor()
     search=request.args["search_term"]
     #selects stories that contain the text the user has searched anywhere in it's name
-    r.execute("SELECT name, timestamp, editor FROM stories WHERE name LIKE '%{0}%' ORDER BY timestamp;".format(search))
-    results = r.fetchall()
-    db.commit();
-    db.close();
+    results = getSelect.getAll("SELECT name, timestamp, editor FROM stories WHERE name LIKE '%{0}%' ORDER BY timestamp;".format(search))
     return render_template("results.html", current_search=search, search_results=results)
 
 '''
