@@ -1,9 +1,11 @@
 {% extends "template.html" %}
 {% block title %}Register!{% endblock %}
 {% block body %}
-
+{% set msgs = get_flashed_messages() %}
 <br>
-
+{% for msg in msgs %}
+<p style="color: red">{{msg}}</p>
+{% endfor %}
 <center>
   <h1> Register an account! </h1>
   
