@@ -177,8 +177,7 @@ def edit_story():
     print(request.form)
     title = request.args['story_title']
     print("TITLE: ", title)
-    s.execute("SELECT story_id FROM stories WHERE stories.name = (?)", (title,))
-    num = s.fetchone()[0]
+    num = getSelect.getFirst("SELECT story_id FROM stories WHERE stories.name = '{0}'".format(title))
     edits = request.args["story_content"]
     params = (num, title, edits, session.get("uname"), int(time.time())) #inserts edits into database
     s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
@@ -226,11 +225,9 @@ def show_story():
 def og_author(story_title):
     db = sqlite3.connect(DB_FILE)
     s = db.cursor()
-    first_time = s.execute("SELECT MIN(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
-    first_time = first_time.fetchone()[0]
-    first_author = s.execute("SELECT editor FROM stories WHERE stories.name = (?) AND stories.timestamp = (?)", (story_title, first_time,)).fetchone()[0]
+    first_time = getSelect.getFirst("SELECT MIN(timestamp) FROM stories WHERE stories.name = '{0}'".format(story_title))
+    first_author = getSelect.getFirst("SELECT editor FROM stories WHERE stories.name = '{0}' AND stories.timestamp = {1}".format(story_title, first_time))
     return first_author
-
 
 if __name__ == "__main__":
     app.debug = True
