@@ -278,9 +278,15 @@ thomasZ -- 2018-10-26 11:28
 display the editor for one specific account created
 (user: w, pass: w)
 =============================================================
-clydeS -- 2999-12-31 23:59
+huiminW -- 2018-10-27 0:53
 -------------------------------------------------------------
-<Thing fristL did.> 
+0. Added flash messages to the register page so users are alerted
+when their passwords don't match or when their username is taken on
+the correct page.
+1. Created and merged modularizing branch so work on modularizing 
+without wrecking the working version that we have
+2. Modularized the fetchone and fetchall methods so app.py is shorter
+3. Modularized inserting into the story table
 =============================================================
 clydeS -- 2999-12-31 23:59
 -------------------------------------------------------------
