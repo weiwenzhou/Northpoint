@@ -4,6 +4,7 @@ import os
 import csv
 import time
 import util.getSelect as getSelect
+import util.insertStory as insertStory
 
 DB_FILE = "northpoint.db"
 app = Flask(__name__)
@@ -37,17 +38,9 @@ def login():
     #print(session)
     if session.get("uname"):
         username = session.get("uname")
-        db = sqlite3.connect(DB_FILE)
-        u = db.cursor()
-        v = db.cursor()
-
-        u.execute("SELECT DISTINCT name FROM stories WHERE stories.editor = (?)", (username,)) #editted
-        v.execute("SELECT DISTINCT name FROM stories WHERE NOT stories.editor = (?)", (username,)) #non-edited
-        not_editted = v.fetchall()
-        editted = u.fetchall()
-        print('not_editted', 'before', not_editted)
+        editted = getSelect.getAll("SELECT DISTINCT name FROM stories WHERE stories.editor = '{0}'".format(username)) #editted
+        not_editted = getSelect.getAll("SELECT DISTINCT name FROM stories WHERE NOT stories.editor = '{0}'".format(username)) #non-edited
         print('editted', 'before', editted)
-
         not_editted_temp = []
         for i in not_editted:
             not_editted_temp.append(i)
@@ -56,9 +49,6 @@ def login():
             if each in editted:
                 not_editted_temp.remove(each)
         not_editted = not_editted_temp
-
-        db.commit();
-        db.close();
 
         print('not_editted', 'after', not_editted)
         print('editted', 'after', editted)
@@ -146,24 +136,17 @@ If not, the story will get placed in our stories database.
 
 @app.route("/input_story", methods=['POST'])
 def input_story():
-    db = sqlite3.connect(DB_FILE)
-    s = db.cursor()
     title=request.form["story_title"]
     beginning_text=request.form["story_content"]
-    s.execute("SELECT name FROM stories WHERE stories.name = (?) LIMIT 1", (title,))
-    if s.fetchone(): #returns true if title already exists
+    if getSelect.getAll("SELECT name FROM stories WHERE stories.name = '{0}'".format(title)): #returns true if title already exists
         print("TITLE ALREADY EXISTS")
         flash("Please input a different title")
         return redirect(url_for("create_story"))
     else:
-        s.execute("SELECT MAX(story_id) FROM stories")
         print("FETCHONE RETURNS INT")
-        num_of_stories = int(s.fetchone()[0]) + 1
+        num_of_stories = int(getSelect.getFirst("SELECT MAX(story_id) FROM stories")) + 1
         print("NUM OF STORES:", num_of_stories)
-        params = num_of_stories, title, beginning_text, session.get("uname"), int(time.time())
-        s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
-        db.commit()
-        db.close()
+        insertStory.insert((num_of_stories, title, beginning_text, session.get("uname"), int(time.time())))
         return redirect(url_for("login"))
 
 '''
@@ -172,17 +155,12 @@ Used when users want to edit a story
 @app.route("/edit_story")
 def edit_story():
     print("Request args:", request.args)
-    db = sqlite3.connect(DB_FILE)
-    s = db.cursor()
     print(request.form)
     title = request.args['story_title']
     print("TITLE: ", title)
     num = getSelect.getFirst("SELECT story_id FROM stories WHERE stories.name = '{0}'".format(title))
     edits = request.args["story_content"]
-    params = (num, title, edits, session.get("uname"), int(time.time())) #inserts edits into database
-    s.execute("INSERT INTO stories VALUES(?,?,?,?,?)", params)
-    db.commit()
-    db.close()
+    insertStory.insert((num, title, edits, session.get("uname"), int(time.time()))) #inserts edits into database
     return redirect(url_for("login"))
 
 
@@ -207,15 +185,12 @@ def show_story():
             return render_template("story.html", title=story_title, content=story_content, author=first_author, edited_status=is_edited)
 
     #if the user is not amongst the editors
-    s.execute("SELECT MAX(timestamp) FROM stories WHERE stories.name = (?)", (story_title,))
-    highest_time = s.fetchone()[0]
-    s.execute("SELECT edit FROM stories WHERE timestamp = (?)", (highest_time,))
-    latest_edit = s.fetchone()[0]
+    highest_time = getSelect.getFirst("SELECT MAX(timestamp) FROM stories WHERE stories.name = '{0}'".format(story_title))
+    latest_edit = getSelect.getFirst("SELECT edit FROM stories WHERE timestamp = {0}".format(highest_time))
     story_content = [latest_edit]
     is_edited = False
     db.commit()
     db.close()
-
     return render_template("story.html", title=story_title, content=story_content, author=first_author, edited_status=is_edited)
 
 #=====================================
@@ -223,8 +198,6 @@ def show_story():
 #=====================================
 
 def og_author(story_title):
-    db = sqlite3.connect(DB_FILE)
-    s = db.cursor()
     first_time = getSelect.getFirst("SELECT MIN(timestamp) FROM stories WHERE stories.name = '{0}'".format(story_title))
     first_author = getSelect.getFirst("SELECT editor FROM stories WHERE stories.name = '{0}' AND stories.timestamp = {1}".format(story_title, first_time))
     return first_author
