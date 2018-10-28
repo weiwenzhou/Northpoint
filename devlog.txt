@@ -288,10 +288,12 @@ without wrecking the working version that we have
 2. Modularized the fetchone and fetchall methods so app.py is shorter
 3. Modularized inserting into the story table
 =============================================================
-weiwenZ -- 2018-10-27 23:00
+weiwenZ -- 2018-10-28 0:05
 -------------------------------------------------------------
 0. Remove the duplicate stories when searching. Prints every single
 story rather than every single edit.
+1. Added author and last editor to results page.
+2. Used a table to display information on results page.
 =============================================================
 =============================================================
 weiwenZ -- 2018-10-28 00:34

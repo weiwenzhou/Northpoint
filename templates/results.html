@@ -1,6 +1,14 @@
 {% extends "template.html" %}
 {% block title %} | Results {% endblock %}
-{% block head %} Results {% endblock %}
+{% block head %} 
+    Showing {{ result_count }} for {{current_search}}:
+    <style> 
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
 
@@ -9,10 +17,21 @@
   <button type="submit">Submit</button> <a href="/login">Go back</a>
 </form>
 
-
-<p> Results: </p>
-{% for row in search_results %}
-<p> <a href="/story?title={{ row[0] }}">{{ row[0] }}</a> by {{ row[1] }}</p>
-{% endfor %}
+<table>
+    <tr>
+        <th> Count </th>
+        <th> Title </th>
+        <th> Author </th>
+        <th> Last Edited by </th>
+    </tr>
+    {% for i in range(result_count) %}
+    <tr>
+        <td> {{ i }} </td>
+        <td> <a href="/story?title={{ search_results[i][0] }}">{{ search_results[i][0] }}</a> </td>
+        <td> {{ author_results[i] }} </td>
+        <td> {{ search_results[i][1] }} </td>
+    </tr>
+    {% endfor %}
+</table>
 
 {% endblock %}
