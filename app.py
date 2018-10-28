@@ -124,8 +124,14 @@ Takes the input from the user and outputs the data from least recent to most rec
 def results():
     search=request.args["search_term"]
     #selects stories that contain the text the user has searched anywhere in it's name
-    results = getSelect.getAll("SELECT name, editor FROM stories WHERE name LIKE '%{0}%' GROUP BY name ORDER BY timestamp;".format(search))
-    return render_template("results.html", current_search=search, search_results=results)
+    command = "SELECT name, editor FROM stories WHERE name LIKE '%{0}%' GROUP BY name ORDER BY timestamp;".format(search)
+    results = getSelect.getAll(command)
+    authors = []
+    for each in results:
+        author = og_author(each[0])
+        authors.append(author)
+    count = len(results)
+    return render_template("results.html", current_search=search, search_results=results, author_results=authors, result_count=count)
 
 '''
 Used when user wants to create a story
