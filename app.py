@@ -124,7 +124,7 @@ Takes the input from the user and outputs the data from least recent to most rec
 def results():
     search=request.args["search_term"]
     #selects stories that contain the text the user has searched anywhere in it's name
-    results = getSelect.getAll("SELECT name, timestamp, editor FROM stories WHERE name LIKE '%{0}%' ORDER BY timestamp;".format(search))
+    results = getSelect.getAll("SELECT name, editor FROM stories WHERE name LIKE '%{0}%' GROUP BY name ORDER BY timestamp;".format(search))
     return render_template("results.html", current_search=search, search_results=results)
 
 '''
