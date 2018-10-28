@@ -31,5 +31,7 @@
 {% endfor %}
 
 <hr>
-<a type="button" href={{ url_for('logout') }}>Logout</a>
+<form action="/logout">
+  <button type="submit">Logout</button>
+</form>
 {% endblock %}
