@@ -20,13 +20,20 @@ $ python app.py
 ```
 4. Access the website by going to http://127.0.0.1:5000/ on any browser.
 
-### Prerequisites
+### Dependencies
 
 What things you need to install the software and how to install them:
 * Python version - 3.6.6
 * Virtual Environment 
 * Flask
 * Wheel
+* Time
+
+Time required requested permission to be used for this assignment.
+Our team used the Time module to fetch the current time when a user submits an edit 
+or creates a story. This information is used to keep track of the order of edits and
+is display when searching for stories using the search option. 
+(Read more [here](https://docs.python.org/3/library/time.html) at the official documentation)
 
 ### Installing
 
