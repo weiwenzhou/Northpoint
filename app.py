@@ -180,9 +180,12 @@ def show_story():
     editted = s.execute("SELECT DISTINCT editor FROM stories WHERE stories.name = (?)", (story_title,)).fetchall()
     first_author = og_author(story_title)
 
+    print(session.get('uname'))
+    print(editted)
+    
     #if the user is amongst the editors
     for user_tuple in editted:
-        if session.get('uname') in user_tuple[0]:
+        if session.get('uname') == user_tuple[0]:
             story_content = []
             edits = s.execute("SELECT * FROM stories WHERE stories.name = (?)", (story_title,))
             for edit in edits:
