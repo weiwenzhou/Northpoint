@@ -288,8 +288,25 @@ without wrecking the working version that we have
 2. Modularized the fetchone and fetchall methods so app.py is shorter
 3. Modularized inserting into the story table
 =============================================================
-clydeS -- 2999-12-31 23:59
+weiwenZ -- 2018-10-28 0:05
 -------------------------------------------------------------
-<Thing fristL did.> 
+0. Remove the duplicate stories when searching. Prints every single
+story rather than every single edit.
+1. Added author and last editor to results page.
+2. Used a table to display information on results page.
 =============================================================
+weiwenZ -- 2018-10-28 00:34
+-------------------------------------------------------------
+0. Helped Thomas find the source of an editor display
+issue, where he accidentally used "in" rather than "=="
+=============================================================
+thomasZ -- 2018-10-28 01:00
+-------------------------------------------------------------
+0. Made the go back buttons actually buttons
+=============================================================
+weiwenZ -- 2018-10-29 1:00
+-------------------------------------------------------------
+0. Removing tiny bits of css.
+1. Adding time last edited in results to make it more complete.
+2. Edited readMe to include time
 

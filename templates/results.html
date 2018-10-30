@@ -1,18 +1,46 @@
 {% extends "template.html" %}
 {% block title %} | Results {% endblock %}
-{% block head %} Results {% endblock %}
+{% block head %} 
+Showing {{ result_count }} for {{current_search}}:
+<style> 
+  table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  }
+</style>
+{% endblock %}
 
 {% block body %}
 
 <form action="/results" method="GET">
-  Enter a keyword: <input type="text" name="search_term" value="{{ current_search }}"> <br><br>  
-  <button type="submit">Submit</button> <a href="/login">Go back</a>
+  Enter a keyword: <input type="text" name="search_term" value="{{ current_search }}">  <button type="submit">Submit</button>
 </form>
 
+<br>
 
-<p> Results: </p>
-{% for row in search_results %}
-<p> <a href="/story?title={{ row[0] }}">{{ row[0] }}</a> by {{ row[2] }}</p>
-{% endfor %}
+<form action="/login">
+  <button type="submit">Go back</button>
+</form>
+
+<br>
+
+<table>
+  <tr>
+    <th> Count </th>
+    <th> Title </th>
+    <th> Author </th>
+    <th> Last Edited by </th>
+    <th> Time Last Edited </th>
+  </tr>
+  {% for i in range(result_count) %}
+  <tr>
+    <td> {{ i }} </td>
+    <td> <a href="/story?title={{ search_results[i][0] }}">{{ search_results[i][0] }}</a> </td>
+    <td> {{ author_results[i][0] }} </td>
+    <td> {{ search_results[i][1] }} </td>
+    <td> {{ author_results[i][1] }} </td>
+  </tr>
+  {% endfor %}
+</table>
 
 {% endblock %}

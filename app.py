@@ -122,10 +122,21 @@ Takes the input from the user and outputs the data from least recent to most rec
 '''
 @app.route("/results", methods=['GET'])
 def results():
-    search=request.args["search_term"]
+    search = request.args["search_term"]
+    search = search.strip()
     #selects stories that contain the text the user has searched anywhere in it's name
-    results = getSelect.getAll("SELECT name, timestamp, editor FROM stories WHERE name LIKE '%{0}%' ORDER BY timestamp;".format(search))
-    return render_template("results.html", current_search=search, search_results=results)
+    command = "SELECT name, editor, timestamp FROM stories WHERE name LIKE '%{0}%' GROUP BY name ORDER BY timestamp;".format(search)
+    results = getSelect.getAll(command)
+    extra_info = []
+    for each in results:
+        author = og_author(each[0])
+        time_edit = time.strftime("%c",time.localtime(each[2]))
+        row = []
+        row.append(author)
+        row.append(time_edit)
+        extra_info.append(row)
+    count = len(results)
+    return render_template("results.html", current_search=search, search_results=results, author_results=extra_info, result_count=count)
 
 '''
 Used when user wants to create a story
@@ -174,9 +185,12 @@ def show_story():
     editted = s.execute("SELECT DISTINCT editor FROM stories WHERE stories.name = (?)", (story_title,)).fetchall()
     first_author = og_author(story_title)
 
+    print(session.get('uname'))
+    print(editted)
+    
     #if the user is amongst the editors
     for user_tuple in editted:
-        if session.get('uname') in user_tuple[0]:
+        if session.get('uname') == user_tuple[0]:
             story_content = []
             edits = s.execute("SELECT * FROM stories WHERE stories.name = (?)", (story_title,))
             for edit in edits:
